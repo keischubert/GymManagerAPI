@@ -13,4 +13,4 @@ AutoMapper: Mapeo de modelos a DTOs para no exponer datos innecesarios o importa
 Accede a la documentacion: https://drive.google.com/file/d/1pEpshwhyg-C2gJsVAE-yBPzxmpw0LPXy/view?usp=drive_link
 Puedes importar el archivo o el codigo yaml en Swagger Editor o Postman.
 
-Diseño de la base de datos (entidades y sus relaciones): https://drive.google.com/file/d/1pEpshwhyg-C2gJsVAE-yBPzxmpw0LPXy/view?usp=drive_link
+Diseño de la base de datos (entidades y sus relaciones): https://drive.google.com/file/d/1gNUxRpApEarqxgl8YIj6mXzguMBV_zai/view?usp=drive_link
