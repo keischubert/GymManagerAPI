@@ -3,14 +3,12 @@ using GymManagerAPI.Models;
 
 namespace GymManagerAPI.Data.DTOs
 {
-    public class CreatePaymentDetailDTO
+    public class SubscriptionCreateDTO
     {
-        public int PaymentId { get; set; }
+        [Required]
+        public DateTime StartDate { get; set; }
 
         [Required]
-        public int Quantity { get; set; }
-
-        [Required]
-        public int PlanId { get; set; }
+        public PaymentCreateDTO Payment { get; set; }
     }
 }

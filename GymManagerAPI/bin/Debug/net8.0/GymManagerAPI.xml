@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GymManagerAPI</name>
+    </assembly>
+    <members>
+        <member name="T:GymManagerAPI.Migrations.CreateGymManagerDb">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateGymManagerDb.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateGymManagerDb.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateGymManagerDb.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.CreateTableMembers">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableMembers.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableMembers.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableMembers.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.CreateTableGendersAndInsertRows">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableGendersAndInsertRows.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableGendersAndInsertRows.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableGendersAndInsertRows.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.CreateTableSubscriptions">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableSubscriptions.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableSubscriptions.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableSubscriptions.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.CreateTablePlans">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePlans.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePlans.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePlans.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.CreateTablePayments">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePayments.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePayments.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePayments.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.InsertRowsPlansTable">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.InsertRowsPlansTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.InsertRowsPlansTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.InsertRowsPlansTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.AlterGendersColumnGenderIdToNotNullable">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterGendersColumnGenderIdToNotNullable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterGendersColumnGenderIdToNotNullable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterGendersColumnGenderIdToNotNullable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

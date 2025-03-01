@@ -8,16 +8,36 @@ namespace GymManagerAPI.Data.AutoMapperProfiles
     {
         public MappingProfile()
         {
-            CreateMap<CreateMemberDTO, Member>();
+            CreateMap<MemberCreateDTO, Member>();
 
-            CreateMap<Member, MemberDTO>()
-                .ForMember(dest => dest.Gender, options => options.MapFrom(src => src.Gender == null ? "No especificado" : src.Gender.Name));
+            CreateMap<Member, MemberDTO>();
 
-            CreateMap<CreateSubscriptionDTO, Subscription>();
+            CreateMap<Member, MemberDetailsDTO>()
+                .ForMember(dest => dest.GenderName, options => options.MapFrom(src => src.Gender.Name))
 
-            CreateMap<CreatePaymentDTO, Payment>();
+                .ForMember(dest => dest.PlanExpirationDate, options => options.MapFrom(src => src.Subscriptions
+                    .OrderByDescending(x => x.ExpirationDate)
+                    .Select(x => x.ExpirationDate)
+                    .FirstOrDefault()));
+                
 
-            CreateMap<CreatePaymentDetailDTO, PaymentDetail>();
+            CreateMap<Member, MemberListDTO>();
+
+            CreateMap<SubscriptionCreateDTO, Subscription>();
+
+            CreateMap<Subscription, SubscriptionListDTO>()
+                .ForMember(dest => dest.PlanName, options => options.MapFrom(s => s.Payment.Plan.Name))
+                .ForMember(dest => dest.TotalAmount, options => options.MapFrom(s => s.Payment.TotalAmount));
+
+            CreateMap<Subscription, SubscriptionDTO>();
+
+            CreateMap<PaymentCreateDTO, Payment>();
+
+            CreateMap<Gender, GenderDTO>();
+
+            CreateMap<PlanCreateDTO, Plan>();
+
+            CreateMap<Plan, PlanDTO>();
         }
     }
 }

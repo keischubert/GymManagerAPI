@@ -18,6 +18,7 @@ namespace GymManagerAPI.Models
         [Range(1, 30)]
         public int DurationInDays { get; set; }
 
-        public ICollection<PaymentDetail> PaymentDetails { get; set; }
+        public ICollection<Payment> Payments { get; set; } //navigation property
+
     }
 }

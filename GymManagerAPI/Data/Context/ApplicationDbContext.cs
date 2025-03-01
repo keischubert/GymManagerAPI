@@ -14,8 +14,6 @@ namespace GymManagerAPI.Data.Context
         public DbSet<Plan> Plans { get; set; }
 
         public DbSet<Payment> Payments { get; set; }
-
-        public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -34,22 +32,17 @@ namespace GymManagerAPI.Data.Context
                 .WithOne(s => s.Member)
                 .HasForeignKey(s => s.MemberId);
 
-            //setting a relation one to many between Subscriptions and Payments
+            //setting a relation one to one between Subscriptions and Payments
             modelBuilder.Entity<Subscription>()
-                .HasMany(s => s.Payments)
+                .HasOne(s => s.Payment)
                 .WithOne(p => p.Subscription)
-                .HasForeignKey(p => p.SubscriptionId);
+                .HasForeignKey<Payment>(p => p.SubscriptionId);
 
-            modelBuilder.Entity<PaymentDetail>()
-                .HasOne(pd => pd.Payment)
-                .WithMany(p => p.PaymentDetails)
-                .HasForeignKey(pd => pd.PaymentId);
-
-            modelBuilder.Entity<PaymentDetail>()
-                .HasOne(pd => pd.Plan)
-                .WithMany(p => p.PaymentDetails)
-                .HasForeignKey(pd => pd.PlanId);
-
+            //setting a relation one to many between Plans and Payments
+            modelBuilder.Entity<Plan>()
+                .HasMany(p => p.Payments)
+                .WithOne(p => p.Plan)
+                .HasForeignKey(p => p.PlanId);
 
             base.OnModelCreating(modelBuilder);
         }

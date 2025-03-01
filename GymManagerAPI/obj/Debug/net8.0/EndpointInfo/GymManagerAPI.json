@@ -1,10 +1,49 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "GymManagerAPI",
-    "version": "1.0"
+    "title": "GymManager API",
+    "description": "Un API desarrollado en ASP.NET Core para administrar un gimnasio.",
+    "version": "v1.1"
   },
   "paths": {
+    "/api/Genders": {
+      "get": {
+        "tags": [
+          "Genders"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GenderDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GenderDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GenderDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/members": {
       "post": {
         "tags": [
@@ -14,17 +53,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMemberDTO"
+                "$ref": "#/components/schemas/MemberCreateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMemberDTO"
+                "$ref": "#/components/schemas/MemberCreateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMemberDTO"
+                "$ref": "#/components/schemas/MemberCreateDTO"
               }
             }
           }
@@ -33,19 +72,9 @@
           "200": {
             "description": "OK",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Member"
-                }
-              },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Member"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Member"
+                  "$ref": "#/components/schemas/MemberDTO"
                 }
               }
             }
@@ -56,31 +85,56 @@
         "tags": [
           "Members"
         ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MemberDTO"
-                  }
-                }
-              },
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MemberDTO"
+                    "$ref": "#/components/schemas/MemberListDTO"
                   }
                 }
-              },
-              "text/json": {
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/actives": {
+      "get": {
+        "tags": [
+          "Members"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MemberDTO"
+                    "$ref": "#/components/schemas/MemberListDTO"
                   }
                 }
               }
@@ -109,17 +163,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemberDTO"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemberDTO"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MemberDTO"
                 }
@@ -147,17 +191,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateMemberDTO"
+                "$ref": "#/components/schemas/MemberUpdateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateMemberDTO"
+                "$ref": "#/components/schemas/MemberUpdateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateMemberDTO"
+                "$ref": "#/components/schemas/MemberUpdateDTO"
               }
             }
           }
@@ -166,17 +210,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Member"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Member"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Member"
                 }
@@ -207,7 +241,37 @@
         }
       }
     },
-    "/api/members/ci/{ci}": {
+    "/api/members/{id}/details": {
+      "get": {
+        "tags": [
+          "Members"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberDetailsDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/by-ci": {
       "get": {
         "tags": [
           "Members"
@@ -215,8 +279,7 @@
         "parameters": [
           {
             "name": "ci",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "string"
             }
@@ -226,22 +289,176 @@
           "200": {
             "description": "OK",
             "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberDetailsDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Plans": {
+      "post": {
+        "tags": [
+          "Plans"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanCreateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanCreateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanCreateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/MemberDTO"
+                  "$ref": "#/components/schemas/PlanDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MemberDTO"
+                  "$ref": "#/components/schemas/PlanDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MemberDTO"
+                  "$ref": "#/components/schemas/PlanDTO"
                 }
               }
             }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Plans"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlanDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlanDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlanDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Plans/{id}": {
+      "get": {
+        "tags": [
+          "Plans"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Plans"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanUpdateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanUpdateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanUpdateDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -266,17 +483,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateSubscriptionDTO"
+                "$ref": "#/components/schemas/SubscriptionCreateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateSubscriptionDTO"
+                "$ref": "#/components/schemas/SubscriptionCreateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateSubscriptionDTO"
+                "$ref": "#/components/schemas/SubscriptionCreateDTO"
               }
             }
           }
@@ -303,121 +520,137 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subscription"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subscription"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subscription"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/members/{memberId}/Subscriptions/{id}": {
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
-      "CreateMemberDTO": {
-        "required": [
-          "ci",
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "genderId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "name": {
-            "maxLength": 50,
-            "minLength": 0,
-            "type": "string"
-          },
-          "ci": {
-            "maxLength": 20,
-            "minLength": 0,
-            "type": "string"
-          },
-          "email": {
-            "maxLength": 50,
-            "minLength": 0,
-            "type": "string",
-            "format": "email",
-            "nullable": true
-          },
-          "phoneNumber": {
-            "maxLength": 20,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreatePaymentDTO": {
-        "required": [
-          "amount",
-          "dateTime"
-        ],
-        "type": "object",
-        "properties": {
-          "subscriptionId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "dateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "amount": {
-            "type": "number",
-            "format": "double"
-          },
-          "paymentDetails": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CreatePaymentDetailDTO"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreatePaymentDetailDTO": {
-        "required": [
-          "planId",
-          "quantity"
-        ],
-        "type": "object",
-        "properties": {
-          "paymentId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "quantity": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "planId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateSubscriptionDTO": {
-        "type": "object",
-        "properties": {
-          "startDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "expirationDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "payments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CreatePaymentDTO"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "Gender": {
         "required": [
           "name"
@@ -442,9 +675,24 @@
         },
         "additionalProperties": false
       },
+      "GenderDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Member": {
         "required": [
           "ci",
+          "genderId",
           "name"
         ],
         "type": "object",
@@ -455,8 +703,7 @@
           },
           "genderId": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           },
           "gender": {
             "$ref": "#/components/schemas/Gender"
@@ -494,6 +741,43 @@
         },
         "additionalProperties": false
       },
+      "MemberCreateDTO": {
+        "required": [
+          "ci",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "genderId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "ci": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "format": "email",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "MemberDTO": {
         "type": "object",
         "properties": {
@@ -505,9 +789,9 @@
             "type": "string",
             "nullable": true
           },
-          "gender": {
-            "type": "string",
-            "nullable": true
+          "genderId": {
+            "type": "integer",
+            "format": "int32"
           },
           "ci": {
             "type": "string",
@@ -524,23 +808,112 @@
         },
         "additionalProperties": false
       },
-      "Payment": {
-        "required": [
-          "dateTime",
-          "totalAmount"
-        ],
+      "MemberDetailsDTO": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
-          "subscriptionId": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "genderName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ci": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "planExpirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "hasPlanActive": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MemberListDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "integer",
             "format": "int32"
           },
-          "subscription": {
-            "$ref": "#/components/schemas/Subscription"
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MemberUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "genderId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "ci": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string",
+            "format": "email",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Payment": {
+        "required": [
+          "dateTime",
+          "plan"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
           },
           "dateTime": {
             "type": "string",
@@ -550,36 +923,12 @@
             "type": "number",
             "format": "double"
           },
-          "paymentDetails": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PaymentDetail"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "PaymentDetail": {
-        "required": [
-          "quantity"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
+          "subscriptionId": {
             "type": "integer",
             "format": "int32"
           },
-          "paymentId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "payment": {
-            "$ref": "#/components/schemas/Payment"
-          },
-          "quantity": {
-            "type": "integer",
-            "format": "int32"
+          "subscription": {
+            "$ref": "#/components/schemas/Subscription"
           },
           "planId": {
             "type": "integer",
@@ -587,6 +936,16 @@
           },
           "plan": {
             "$ref": "#/components/schemas/Plan"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentCreateDTO": {
+        "type": "object",
+        "properties": {
+          "planId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -620,17 +979,90 @@
             "type": "integer",
             "format": "int32"
           },
-          "paymentDetails": {
+          "payments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PaymentDetail"
+              "$ref": "#/components/schemas/Payment"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
+      "PlanCreateDTO": {
+        "required": [
+          "durationInDays",
+          "name",
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "price": {
+            "maximum": 250000,
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          },
+          "durationInDays": {
+            "maximum": 30,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlanDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "durationInDays": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlanUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "durationInDays": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Subscription": {
+        "required": [
+          "payment"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -652,48 +1084,47 @@
             "type": "string",
             "format": "date-time"
           },
-          "payments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Payment"
-            },
-            "nullable": true
+          "payment": {
+            "$ref": "#/components/schemas/Payment"
           }
         },
         "additionalProperties": false
       },
-      "UpdateMemberDTO": {
+      "SubscriptionCreateDTO": {
+        "required": [
+          "payment",
+          "startDate"
+        ],
         "type": "object",
         "properties": {
-          "genderId": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "payment": {
+            "$ref": "#/components/schemas/PaymentCreateDTO"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           },
-          "name": {
-            "maxLength": 50,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
+          "memberId": {
+            "type": "integer",
+            "format": "int32"
           },
-          "ci": {
-            "maxLength": 20,
-            "minLength": 0,
+          "startDate": {
             "type": "string",
-            "nullable": true
+            "format": "date-time"
           },
-          "email": {
-            "maxLength": 50,
-            "minLength": 0,
+          "expirationDate": {
             "type": "string",
-            "format": "email",
-            "nullable": true
-          },
-          "phoneNumber": {
-            "maxLength": 20,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
+            "format": "date-time"
           }
         },
         "additionalProperties": false

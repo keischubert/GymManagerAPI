@@ -6,7 +6,8 @@ namespace GymManagerAPI.Models
     {
         public int Id { get; set; }
 
-        public int? GenderId { get; set; }
+        [Required]
+        public int GenderId { get; set; }
         public Gender Gender { get; set; }
 
         [Required]

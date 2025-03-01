@@ -9,7 +9,7 @@ namespace GymManagerAPI.Data.DTOs
 
         public string Name { get; set; }
 
-        public string Gender { get; set; }
+        public int GenderId { get; set; }
 
         public string Ci { get; set; }
 

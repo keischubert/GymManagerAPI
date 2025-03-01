@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagerAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250218002417_CreateTablePayments")]
-    partial class CreateTablePayments
+    [Migration("20250224015343_AlterGendersColumnGenderIdToNotNullable")]
+    partial class AlterGendersColumnGenderIdToNotNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,7 @@ namespace GymManagerAPI.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("GenderId")
+                    b.Property<int>("GenderId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -89,6 +89,9 @@ namespace GymManagerAPI.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PlanId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SubscriptionId")
                         .HasColumnType("int");
 
@@ -97,7 +100,10 @@ namespace GymManagerAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubscriptionId");
+                    b.HasIndex("PlanId");
+
+                    b.HasIndex("SubscriptionId")
+                        .IsUnique();
 
                     b.ToTable("Payments");
                 });
@@ -154,18 +160,28 @@ namespace GymManagerAPI.Migrations
                 {
                     b.HasOne("GymManagerAPI.Models.Gender", "Gender")
                         .WithMany("Members")
-                        .HasForeignKey("GenderId");
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Gender");
                 });
 
             modelBuilder.Entity("GymManagerAPI.Models.Payment", b =>
                 {
-                    b.HasOne("GymManagerAPI.Models.Subscription", "Subscription")
+                    b.HasOne("GymManagerAPI.Models.Plan", "Plan")
                         .WithMany("Payments")
-                        .HasForeignKey("SubscriptionId")
+                        .HasForeignKey("PlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("GymManagerAPI.Models.Subscription", "Subscription")
+                        .WithOne("Payment")
+                        .HasForeignKey("GymManagerAPI.Models.Payment", "SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plan");
 
                     b.Navigation("Subscription");
                 });
@@ -191,9 +207,15 @@ namespace GymManagerAPI.Migrations
                     b.Navigation("Subscriptions");
                 });
 
-            modelBuilder.Entity("GymManagerAPI.Models.Subscription", b =>
+            modelBuilder.Entity("GymManagerAPI.Models.Plan", b =>
                 {
                     b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("GymManagerAPI.Models.Subscription", b =>
+                {
+                    b.Navigation("Payment")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

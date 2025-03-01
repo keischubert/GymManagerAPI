@@ -3,15 +3,13 @@ using GymManagerAPI.Models;
 
 namespace GymManagerAPI.Data.DTOs
 {
-    public class CreateMemberDTO
+    public class MemberUpdateDTO
     {
-        public int? GenderId { get; set; }
+        public int GenderId { get; set; }
 
-        [Required]
         [StringLength(maximumLength: 50)]
         public string Name { get; set; }
 
-        [Required]
         [StringLength(maximumLength: 20)]
         public string Ci { get; set; }
 

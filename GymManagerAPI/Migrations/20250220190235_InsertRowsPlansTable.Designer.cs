@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagerAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250218003532_CreateTablePaymentDetails")]
-    partial class CreateTablePaymentDetails
+    [Migration("20250220190235_InsertRowsPlansTable")]
+    partial class InsertRowsPlansTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,9 @@ namespace GymManagerAPI.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PlanId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SubscriptionId")
                         .HasColumnType("int");
 
@@ -97,35 +100,12 @@ namespace GymManagerAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubscriptionId");
-
-                    b.ToTable("Payments");
-                });
-
-            modelBuilder.Entity("GymManagerAPI.Models.PaymentDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlanId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaymentId");
-
                     b.HasIndex("PlanId");
 
-                    b.ToTable("PaymentDetails");
+                    b.HasIndex("SubscriptionId")
+                        .IsUnique();
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("GymManagerAPI.Models.Plan", b =>
@@ -187,32 +167,21 @@ namespace GymManagerAPI.Migrations
 
             modelBuilder.Entity("GymManagerAPI.Models.Payment", b =>
                 {
-                    b.HasOne("GymManagerAPI.Models.Subscription", "Subscription")
-                        .WithMany("Payments")
-                        .HasForeignKey("SubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subscription");
-                });
-
-            modelBuilder.Entity("GymManagerAPI.Models.PaymentDetail", b =>
-                {
-                    b.HasOne("GymManagerAPI.Models.Payment", "Payment")
-                        .WithMany("PaymentDetails")
-                        .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("GymManagerAPI.Models.Plan", "Plan")
-                        .WithMany("PaymentDetails")
+                        .WithMany("Payments")
                         .HasForeignKey("PlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Payment");
+                    b.HasOne("GymManagerAPI.Models.Subscription", "Subscription")
+                        .WithOne("Payment")
+                        .HasForeignKey("GymManagerAPI.Models.Payment", "SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Plan");
+
+                    b.Navigation("Subscription");
                 });
 
             modelBuilder.Entity("GymManagerAPI.Models.Subscription", b =>
@@ -236,19 +205,14 @@ namespace GymManagerAPI.Migrations
                     b.Navigation("Subscriptions");
                 });
 
-            modelBuilder.Entity("GymManagerAPI.Models.Payment", b =>
-                {
-                    b.Navigation("PaymentDetails");
-                });
-
             modelBuilder.Entity("GymManagerAPI.Models.Plan", b =>
                 {
-                    b.Navigation("PaymentDetails");
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("GymManagerAPI.Models.Subscription", b =>
                 {
-                    b.Navigation("Payments");
+                    b.Navigation("Payment");
                 });
 #pragma warning restore 612, 618
         }

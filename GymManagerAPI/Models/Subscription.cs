@@ -1,4 +1,6 @@
-﻿namespace GymManagerAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GymManagerAPI.Models
 {
     public class Subscription
     {
@@ -11,6 +13,7 @@
 
         public DateTime ExpirationDate { get; set; }
 
-        public ICollection<Payment> Payments { get; set; }
+        [Required]
+        public Payment Payment { get; set; } //navigation property
     }
 }

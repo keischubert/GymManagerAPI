@@ -1,8 +1,10 @@
 
+using System.Reflection;
 using System.Text.Json.Serialization;
 using GymManagerAPI.Data.AutoMapperProfiles;
 using GymManagerAPI.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace GymManagerAPI
 {
@@ -28,7 +30,16 @@ namespace GymManagerAPI
             
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1.1",
+                    Title = "GymManager API",
+                    Description = "Un API desarrollado en ASP.NET Core para administrar un gimnasio."
+                });
+
+            });
 
             var app = builder.Build();
 

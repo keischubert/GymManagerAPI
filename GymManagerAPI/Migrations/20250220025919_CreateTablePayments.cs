@@ -17,13 +17,20 @@ namespace GymManagerAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SubscriptionId = table.Column<int>(type: "int", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalAmount = table.Column<double>(type: "float", nullable: false)
+                    TotalAmount = table.Column<double>(type: "float", nullable: false),
+                    SubscriptionId = table.Column<int>(type: "int", nullable: false),
+                    PlanId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_Plans_PlanId",
+                        column: x => x.PlanId,
+                        principalTable: "Plans",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Payments_Subscriptions_SubscriptionId",
                         column: x => x.SubscriptionId,
@@ -33,9 +40,15 @@ namespace GymManagerAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payments_PlanId",
+                table: "Payments",
+                column: "PlanId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payments_SubscriptionId",
                 table: "Payments",
-                column: "SubscriptionId");
+                column: "SubscriptionId",
+                unique: true);
         }
 
         /// <inheritdoc />

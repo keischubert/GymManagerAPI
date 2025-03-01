@@ -10,11 +10,11 @@ namespace GymManagerAPI.Controllers
 {
     [ApiController]
     [Route("/api/members")]
+    [Produces("application/json")]
     public class MembersController : Controller
     {
         private readonly ApplicationDbContext dbContext;
         private readonly IMapper mapper;
-        private string errorMsg { get; } = "Invalid data provided";
 
         public MembersController(ApplicationDbContext dbContext, IMapper mapper)
         {
@@ -23,56 +23,105 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Member>> Create(CreateMemberDTO createMemberDTO)
+        public async Task<ActionResult<MemberDTO>> Create(MemberCreateDTO memberCreateDTO)
         {
-            //validation: no puede haber ci repetidos en Members
-            var memberCiExists = await dbContext.Members.AnyAsync(m => m.Ci.Equals(createMemberDTO.Ci));
+            //validation: no puede haber miembros con ci iguales
+            var doesCiAlreadyExists = await dbContext.Members.AnyAsync(m => m.Ci.Equals(memberCreateDTO.Ci));
 
-            if (memberCiExists)
+            if (doesCiAlreadyExists)
             {
-                return BadRequest(errorMsg);
+                return BadRequest("El ci proporcionado ya existe");
             }
 
-            //validation: verificar si el genderId ingresado existe
-            if (createMemberDTO.GenderId != null)
+            //validation: verificar si el genderId existe en Genders y este fue enviado en la solicitud
+            if(memberCreateDTO.GenderId != 0)
             {
-                var genderExists = await dbContext.Genders.AnyAsync(g => g.Id.Equals(createMemberDTO.GenderId));
+                var doesGenderExists = await dbContext.Genders.AnyAsync(g => g.Id == memberCreateDTO.GenderId);
 
-                if (!genderExists)
+                if (!doesGenderExists)
                 {
-                    return NotFound(errorMsg);
+                    return NotFound("El genero ingresado no existe");
                 }
             }
+            
+            //mapping: MemberCreateDTO a Member para guardarlo en la db
+            var member = mapper.Map<Member>(memberCreateDTO);
 
-            //mapeo del DTO de creacion a Member para crear el registro
-            var member = mapper.Map<Member>(createMemberDTO);
-
+            //db: insertando Member
             dbContext.Members.Add(member);
-
             await dbContext.SaveChangesAsync();
 
-            return Ok(member);
+            //mapping: Member a MemberDetailDTO para la respuesta
+            var memberDTO = mapper.Map<MemberDTO>(member);
+
+            return CreatedAtAction("GetById", new { id = memberDTO.Id }, memberDTO);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<MemberListDTO>>> GetMembers([FromQuery] string name)
         {
-            var listMembers = await dbContext.Members.Include(m => m.Gender).ToListAsync();
+            var query = dbContext.Members.AsQueryable();
 
-            var listMembersDTO = mapper.Map<List<MemberDTO>>(listMembers);
+            //Filtrado de miembros segun el name de la solicitud
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query
+                    .Where(x => x.Name.ToLower().Contains(name.ToLower()));
+            }
 
-            return Ok(listMembersDTO);
+            //Listar los miembros segun el filtro o todos 
+            var memberList = await query.ToListAsync();
+
+            //mapping: List<Member> a List<MemberListDTO> para la respuesta
+            var memberListDTO = mapper.Map<List<MemberListDTO>>(memberList);
+
+            return Ok(memberListDTO);
+        }
+
+        [HttpGet("actives")]
+        public async Task<ActionResult<IEnumerable<MemberListDTO>>> GetActiveMembersByDate([FromQuery] DateTime? date = null)
+        {
+            //definicion de un query para una consulta opcional, segun si se ha recibido una fecha o no
+            var query = dbContext.Subscriptions.AsQueryable();
+
+            if (date.HasValue)
+            {
+                query = query
+                    .Where(x => x.ExpirationDate >= date);
+            }
+            else
+            {
+                query = query
+                    .Where(x => x.ExpirationDate >= DateTime.Now);
+            }
+
+            //se filtran todos los miembros que tengan una suscripcion activa
+            var activeMemberIds = await query
+                .GroupBy(x => x.MemberId)
+                .Select(x => x.Key)
+                .ToListAsync();
+
+            //se obtienen los registros a partir de la lista de Ids
+            var activeMemberList = await dbContext.Members
+                .Where(x => activeMemberIds.Contains(x.Id))
+                .ToListAsync();
+
+            //mapping: para la respuesta
+            var activeMemberListDTO = mapper.Map<List<MemberListDTO>>(activeMemberList);
+
+            return Ok(activeMemberListDTO);
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<MemberDTO>> GetById([FromRoute] int id)
         {
-            //validation: member id invalido
-            var member = await dbContext.Members.Include(m => m.Gender).FirstOrDefaultAsync(m => m.Id.Equals(id));
+            //validation: existencia del miembro
+            var member = await dbContext.Members
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (member == null)
             {
-                return NotFound(errorMsg);
+                return NotFound("No existe ningun miembro con el id proporcionado");
             }
 
             var memberDTO = mapper.Map<MemberDTO>(member);
@@ -80,80 +129,109 @@ namespace GymManagerAPI.Controllers
             return Ok(memberDTO);
         }
 
-        [HttpGet("ci/{ci}")]
-        public async Task<ActionResult<MemberDTO>> GetByCi([FromRoute] string ci)
+        [HttpGet("{id:int}/details")]
+        public async Task<ActionResult<MemberDetailsDTO>> GetByIdDetails([FromRoute] int id)
         {
-            //validation: member ci invalido
-            var member = await dbContext.Members.Include(m => m.Gender).FirstOrDefaultAsync(m => m.Ci.Equals(ci));
+            //validation: existencia del miembro
+            var member = await dbContext.Members
+                .Include(m => m.Gender)
+                .Include(m => m.Subscriptions)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (member == null)
             {
-                return NotFound(errorMsg);
+                return NotFound("No existe ningun miembro con el id proporcionado");
             }
 
-            var memberDTO = mapper.Map<MemberDTO>(member);
+            var memberDetailsDTO = mapper.Map<MemberDetailsDTO>(member);
 
-            return Ok(memberDTO);
+            return Ok(memberDetailsDTO);
+        }
+
+
+        [HttpGet("by-ci")]
+        public async Task<ActionResult<MemberDetailsDTO>> GetByCi([FromQuery] string ci)
+        {
+            //validation: verificar existencia de un Member con un ci de la solicitud
+            var member = await dbContext.Members
+                .Include(m => m.Gender)
+                .Include(m => m.Subscriptions)
+                .FirstOrDefaultAsync(m => m.Ci.Equals(ci));
+
+            if (member == null)
+            {
+                return NotFound("No existe ningun miembro con el ci proporcionado");
+            }
+
+            var memberDetailsDTO = mapper.Map<MemberDetailsDTO>(member);
+
+            return Ok(memberDetailsDTO);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Member>> Update([FromRoute] int id, [FromBody] UpdateMemberDTO updateMemberDTO)
+        public async Task<ActionResult<Member>> Update([FromRoute] int id, [FromBody] MemberUpdateDTO memberUpdateDTO)
         {
-            //validation: existencia del MemberId 
+            //validation: verificar si existe el miembro con id obtenido por ruta
             var member = await dbContext.Members.FindAsync(id);
 
             if (member == null)
             {
-                return NotFound(errorMsg);
+                return NotFound("No existe ningun miembro con el id proporcionado");
             }
 
             //validation and update: Name no es nulo y fue cambiado
-            if (updateMemberDTO.Name != null && !member.Name.Equals(updateMemberDTO.Name))
+            var wasNameChanged = memberUpdateDTO.Name != null && !member.Name.Equals(memberUpdateDTO.Name);
+
+            if (wasNameChanged)
             {
-                member.Name = updateMemberDTO.Name;
+                member.Name = memberUpdateDTO.Name;
             }
 
             //validate and update: ci ingresado fue cambiado por otro que ya existe
-            var isCiDifferent = !member.Ci.Equals(updateMemberDTO.Ci);
+            var wasCiChanged = memberUpdateDTO.Ci != null && !member.Ci.Equals(memberUpdateDTO.Ci);
 
-            if (isCiDifferent)
+            if (wasCiChanged)
             {
-                var ciInputExists = await dbContext.Members.AnyAsync(m => m.Ci == updateMemberDTO.Ci);
+                var ciInputExists = await dbContext.Members.AnyAsync(m => m.Ci == memberUpdateDTO.Ci);
 
-                if(ciInputExists)
+                if (ciInputExists)
                 {
-                    return NotFound(errorMsg);
+                    return BadRequest("El ci ingresado ya existe");
                 }
 
-                member.Ci = updateMemberDTO.Ci;
+                member.Ci = memberUpdateDTO.Ci;
             }
 
             //validate and update: genderId fue cambiado por uno que no existe
-            var isGenderIdDifferent = !member.GenderId.Equals(updateMemberDTO.GenderId);
-
-            if (isGenderIdDifferent && updateMemberDTO.GenderId != null)
+            var wasGenderIdChanged = memberUpdateDTO.GenderId != 0 && memberUpdateDTO.GenderId != member.GenderId;
+            
+            if (wasGenderIdChanged) 
             {
-                var genderExists = await dbContext.Members.AnyAsync(m => m.Id == updateMemberDTO.GenderId);
+                var doesGenderExists = await dbContext.Genders.AnyAsync(m => m.Id == memberUpdateDTO.GenderId);
 
-                if (!genderExists)
+                if (!doesGenderExists)
                 {
-                    return NotFound(errorMsg);
+                    return NotFound("El genero ingresado no existe");
                 }
 
-                member.GenderId = updateMemberDTO.GenderId;
+                member.GenderId = memberUpdateDTO.GenderId;
             }
 
             //validate and update: phone_number
-            if (updateMemberDTO.PhoneNumber != null && !member.PhoneNumber.Equals(updateMemberDTO.PhoneNumber))
+            var wasPhoneNumberChanged = memberUpdateDTO.PhoneNumber != null && !member.PhoneNumber.Equals(memberUpdateDTO.PhoneNumber);
+            if (wasPhoneNumberChanged)
             {
-                member.PhoneNumber = updateMemberDTO.PhoneNumber;
+                member.PhoneNumber = memberUpdateDTO.PhoneNumber;
             }
 
-            //update database
+            //database: update
             dbContext.Members.Update(member);
             await dbContext.SaveChangesAsync();
 
-            return Ok(member);
+            //mapping para la respuesta
+            var memberDTO = mapper.Map<MemberDTO>(member);
+
+            return Ok(memberDTO);
         }
 
         [HttpDelete("{id:int}")]
@@ -164,16 +242,14 @@ namespace GymManagerAPI.Controllers
 
             if (member == null)
             {
-                return BadRequest(errorMsg);
+                return BadRequest("There's a problem with the member");
             }
 
-
+            //database: remove
             dbContext.Members.Remove(member);
             await dbContext.SaveChangesAsync();
 
             return NoContent();
         }
-
-
     }
 }
