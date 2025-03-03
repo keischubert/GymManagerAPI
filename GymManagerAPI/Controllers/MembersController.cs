@@ -233,23 +233,5 @@ namespace GymManagerAPI.Controllers
 
             return Ok(memberDTO);
         }
-
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete([FromRoute] int id)
-        {
-            //validate: member exists
-            var member = await dbContext.Members.FindAsync(id);
-
-            if (member == null)
-            {
-                return BadRequest("There's a problem with the member");
-            }
-
-            //database: remove
-            dbContext.Members.Remove(member);
-            await dbContext.SaveChangesAsync();
-
-            return NoContent();
-        }
     }
 }

@@ -173,3 +173,4 @@ C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\bin\Debug\net8.0\AutoMap
 C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\bin\Debug\net8.0\GymManagerAPI.xml
 C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\obj\Debug\net8.0\GymManagerAPI.xml
+C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\obj\Debug\net8.0\GymManagerAPI.sourcelink.json
