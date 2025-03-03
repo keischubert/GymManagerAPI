@@ -1,5 +1,5 @@
 Funcionalidades:
-Gestión de miembros: Crear, actualizar, obtener y eliminar registros de miembros.
+Gestión de miembros: Crear, actualizar y obtener registros de miembros.
 Suscripciones: Registro de nuevas suscripciones y control de suscripciones activas.
 Pagos: Registro de pagos asociados a una suscripcion.
 Planes: Administración de planes de suscripción.
