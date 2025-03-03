@@ -122,22 +122,6 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.MembersController",
-    "Method": "Delete",
-    "RelativePath": "api/members/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "GymManagerAPI.Controllers.MembersController",
     "Method": "GetByIdDetails",
     "RelativePath": "api/members/{id}/details",
     "HttpMethod": "GET",
@@ -264,6 +248,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
+    "Method": "GetTime",
+    "RelativePath": "api/members/{memberId}/Subscriptions/time",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberId",
+        "Type": "",
         "IsRequired": true
       }
     ],

@@ -170,7 +170,7 @@ C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\bin\Debug\net8.0\runtime
 C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\bin\Debug\net8.0\AutoMapper.dll
-C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\bin\Debug\net8.0\GymManagerAPI.xml
 C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\obj\Debug\net8.0\GymManagerAPI.xml
 C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\obj\Debug\net8.0\GymManagerAPI.sourcelink.json
+C:\Users\kevin\source\repos\GymManagerAPI\GymManagerAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

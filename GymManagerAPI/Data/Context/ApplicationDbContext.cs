@@ -14,6 +14,8 @@ namespace GymManagerAPI.Data.Context
         public DbSet<Plan> Plans { get; set; }
 
         public DbSet<Payment> Payments { get; set; }
+
+        public DbSet<DeletedSubscription> DeletedSubscriptions { get; set; }
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -43,6 +45,12 @@ namespace GymManagerAPI.Data.Context
                 .HasMany(p => p.Payments)
                 .WithOne(p => p.Plan)
                 .HasForeignKey(p => p.PlanId);
+
+            //setting a relation one to one between Subscriptions and DeletedSubscriptions
+            modelBuilder.Entity<DeletedSubscription>()
+                .HasOne(ds => ds.Subscription)
+                .WithOne(s => s.DeletedSubscription)
+                .HasForeignKey<DeletedSubscription>(ds => ds.SubscriptionId);
 
             base.OnModelCreating(modelBuilder);
         }

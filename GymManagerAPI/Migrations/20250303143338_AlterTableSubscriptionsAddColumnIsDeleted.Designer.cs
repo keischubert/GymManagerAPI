@@ -4,6 +4,7 @@ using GymManagerAPI.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagerAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250303143338_AlterTableSubscriptionsAddColumnIsDeleted")]
+    partial class AlterTableSubscriptionsAddColumnIsDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,31 +24,6 @@ namespace GymManagerAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("GymManagerAPI.Models.DeletedSubscription", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SubscriptionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubscriptionId")
-                        .IsUnique();
-
-                    b.ToTable("DeletedSubscriptions");
-                });
 
             modelBuilder.Entity("GymManagerAPI.Models.Gender", b =>
                 {
@@ -181,17 +159,6 @@ namespace GymManagerAPI.Migrations
                     b.ToTable("Subscriptions");
                 });
 
-            modelBuilder.Entity("GymManagerAPI.Models.DeletedSubscription", b =>
-                {
-                    b.HasOne("GymManagerAPI.Models.Subscription", "Subscription")
-                        .WithOne("DeletedSubscription")
-                        .HasForeignKey("GymManagerAPI.Models.DeletedSubscription", "SubscriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subscription");
-                });
-
             modelBuilder.Entity("GymManagerAPI.Models.Member", b =>
                 {
                     b.HasOne("GymManagerAPI.Models.Gender", "Gender")
@@ -250,8 +217,6 @@ namespace GymManagerAPI.Migrations
 
             modelBuilder.Entity("GymManagerAPI.Models.Subscription", b =>
                 {
-                    b.Navigation("DeletedSubscription");
-
                     b.Navigation("Payment");
                 });
 #pragma warning restore 612, 618

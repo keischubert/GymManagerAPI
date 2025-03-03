@@ -218,27 +218,6 @@
             }
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "Members"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
       }
     },
     "/api/members/{id}/details": {
@@ -647,10 +626,57 @@
           }
         }
       }
+    },
+    "/api/members/{memberId}/Subscriptions/time": {
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "DeletedSubscription": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subscriptionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subscription": {
+            "$ref": "#/components/schemas/Subscription"
+          },
+          "deletedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
       "Gender": {
         "required": [
           "name"
@@ -1060,9 +1086,6 @@
         "additionalProperties": false
       },
       "Subscription": {
-        "required": [
-          "payment"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1084,8 +1107,14 @@
             "type": "string",
             "format": "date-time"
           },
+          "isDeleted": {
+            "type": "boolean"
+          },
           "payment": {
             "$ref": "#/components/schemas/Payment"
+          },
+          "deletedSubscription": {
+            "$ref": "#/components/schemas/DeletedSubscription"
           }
         },
         "additionalProperties": false

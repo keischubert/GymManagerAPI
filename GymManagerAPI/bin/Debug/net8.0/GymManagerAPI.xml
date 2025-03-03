@@ -100,5 +100,29 @@
         <member name="M:GymManagerAPI.Migrations.AlterGendersColumnGenderIdToNotNullable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:GymManagerAPI.Migrations.AlterTableSubscriptionsAddColumnIsDeleted">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableSubscriptionsAddColumnIsDeleted.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableSubscriptionsAddColumnIsDeleted.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableSubscriptionsAddColumnIsDeleted.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.CreateTableDeletedSubscriptions">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableDeletedSubscriptions.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableDeletedSubscriptions.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableDeletedSubscriptions.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

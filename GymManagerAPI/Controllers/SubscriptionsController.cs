@@ -149,15 +149,22 @@ namespace GymManagerAPI.Controllers
                 return BadRequest("Ocurrio un error! El miembro no cuenta con ninguna suscripcion con el id proporcionado");
             }
 
-            //validation: el registro solo podra ser eliminado hasta 10 minutos despues de su pago
-            if(subscription.Payment.DateTime.AddMinutes(10) < DateTime.Now)
-            {
-                return BadRequest("No puedes eliminar esta suscripcion luego de los 10 minutos.");
-            }
+            //apply: aplicamos el softdelete
+            subscription.IsDeleted = true;
+            dbContext.Subscriptions.Update(subscription);
 
-            //database: delete
-            dbContext.Subscriptions.Remove(subscription);
+            //registramos el softdelete en DeletedSubscriptions
+            var deletedSubscription = new DeletedSubscription()
+            {
+                SubscriptionId = subscription.Id,
+                DeletedBy = "Juan",
+                DeletedAt = DateTime.Now
+            };
+
+            dbContext.DeletedSubscriptions.Add(deletedSubscription);
+            
             await dbContext.SaveChangesAsync();
+            
 
             return NoContent();
         }
