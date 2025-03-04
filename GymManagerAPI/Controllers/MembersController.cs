@@ -57,7 +57,7 @@ namespace GymManagerAPI.Controllers
             return CreatedAtAction("GetById", new { id = memberDTO.Id }, memberDTO);
         }
 
-        //endpoint para filtrar members segun algunos parametros
+        //Endpoint para filtrar members segun algunos parametros
         [HttpGet]
         public async Task<ActionResult<List<MemberListDTO>>> Get(
             [FromQuery] string name, 
@@ -107,12 +107,20 @@ namespace GymManagerAPI.Controllers
         } 
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<MemberDTO>> GetById([FromRoute] int id)
+        public async Task<ActionResult<MemberDTO>> GetById([FromRoute] int id, [FromQuery] bool details)
         {
-            //validation: existencia del miembro
-            var member = await dbContext.Members
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var query = dbContext.Members.AsQueryable();
 
+            if(details)
+            {
+                query = query
+                    .Include(x => x.Gender)
+                    .Include(x => x.Subscriptions);
+            }
+
+            var member = await query.FirstOrDefaultAsync(x => x.Id == id);
+
+            //validation: existencia del miembro
             if (member == null)
             {
                 return NotFound("No existe ningun miembro con el id proporcionado");
@@ -121,25 +129,6 @@ namespace GymManagerAPI.Controllers
             var memberDTO = mapper.Map<MemberDTO>(member);
 
             return Ok(memberDTO);
-        }
-
-        [HttpGet("{id:int}/details")]
-        public async Task<ActionResult<MemberDetailsDTO>> GetByIdDetails([FromRoute] int id)
-        {
-            //validation: existencia del miembro
-            var member = await dbContext.Members
-                .Include(m => m.Gender)
-                .Include(m => m.Subscriptions)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (member == null)
-            {
-                return NotFound("No existe ningun miembro con el id proporcionado");
-            }
-
-            var memberDetailsDTO = mapper.Map<MemberDetailsDTO>(member);
-
-            return Ok(memberDetailsDTO);
         }
 
         [HttpPut("{id:int}")]

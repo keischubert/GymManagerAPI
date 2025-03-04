@@ -11,6 +11,10 @@ namespace GymManagerAPI.Data.DTOs
 
         public int GenderId { get; set; }
 
+        public string GenderName { get; set; }
+
+        public DateTime? PlanExpirationDate { get; set; }
+
         public string Ci { get; set; }
 
         public string Email { get; set; }
