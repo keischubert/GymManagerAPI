@@ -57,60 +57,54 @@ namespace GymManagerAPI.Controllers
             return CreatedAtAction("GetById", new { id = memberDTO.Id }, memberDTO);
         }
 
+        //endpoint para filtrar members segun algunos parametros
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberListDTO>>> GetMembers([FromQuery] string name)
+        public async Task<ActionResult<List<MemberListDTO>>> Get(
+            [FromQuery] string name, 
+            [FromQuery] int? gender, 
+            [FromQuery] string ci, 
+            [FromQuery] string email, 
+            [FromQuery] DateTime? activeMembersFromDate)
         {
             var query = dbContext.Members.AsQueryable();
 
-            //Filtrado de miembros segun el name de la solicitud
-            if (!string.IsNullOrEmpty(name))
+            if (!string.IsNullOrWhiteSpace(name))
             {
-                query = query
-                    .Where(x => x.Name.ToLower().Contains(name.ToLower()));
+                query = query.Where(x => x.Name.Contains(name));
             }
 
-            //Listar los miembros segun el filtro o todos 
+            if (gender.HasValue)
+            {
+                query = query.Where(x => x.GenderId == gender);
+            }
+
+            if (!string.IsNullOrWhiteSpace(ci))
+            {
+                query = query.Where(x => x.Ci.Equals(ci));
+            }
+
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                query = query.Where(x => x.Email.Equals(email));
+            }
+
+            if (activeMembersFromDate.HasValue)
+            {
+                var activeMemberIds = await dbContext.Subscriptions
+                    .Where(x => x.ExpirationDate > DateTime.Now)
+                    .GroupBy(x => x.MemberId)
+                    .Select(x => x.Key)
+                    .ToListAsync();
+
+                query = query.Where(x => activeMemberIds.Contains(x.Id));
+            }
+
             var memberList = await query.ToListAsync();
 
-            //mapping: List<Member> a List<MemberListDTO> para la respuesta
             var memberListDTO = mapper.Map<List<MemberListDTO>>(memberList);
 
             return Ok(memberListDTO);
-        }
-
-        [HttpGet("actives")]
-        public async Task<ActionResult<IEnumerable<MemberListDTO>>> GetActiveMembersByDate([FromQuery] DateTime? date = null)
-        {
-            //definicion de un query para una consulta opcional, segun si se ha recibido una fecha o no
-            var query = dbContext.Subscriptions.AsQueryable();
-
-            if (date.HasValue)
-            {
-                query = query
-                    .Where(x => x.ExpirationDate >= date);
-            }
-            else
-            {
-                query = query
-                    .Where(x => x.ExpirationDate >= DateTime.Now);
-            }
-
-            //se filtran todos los miembros que tengan una suscripcion activa
-            var activeMemberIds = await query
-                .GroupBy(x => x.MemberId)
-                .Select(x => x.Key)
-                .ToListAsync();
-
-            //se obtienen los registros a partir de la lista de Ids
-            var activeMemberList = await dbContext.Members
-                .Where(x => activeMemberIds.Contains(x.Id))
-                .ToListAsync();
-
-            //mapping: para la respuesta
-            var activeMemberListDTO = mapper.Map<List<MemberListDTO>>(activeMemberList);
-
-            return Ok(activeMemberListDTO);
-        }
+        } 
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<MemberDTO>> GetById([FromRoute] int id)
@@ -141,26 +135,6 @@ namespace GymManagerAPI.Controllers
             if (member == null)
             {
                 return NotFound("No existe ningun miembro con el id proporcionado");
-            }
-
-            var memberDetailsDTO = mapper.Map<MemberDetailsDTO>(member);
-
-            return Ok(memberDetailsDTO);
-        }
-
-
-        [HttpGet("by-ci")]
-        public async Task<ActionResult<MemberDetailsDTO>> GetByCi([FromQuery] string ci)
-        {
-            //validation: verificar existencia de un Member con un ci de la solicitud
-            var member = await dbContext.Members
-                .Include(m => m.Gender)
-                .Include(m => m.Subscriptions)
-                .FirstOrDefaultAsync(m => m.Ci.Equals(ci));
-
-            if (member == null)
-            {
-                return NotFound("No existe ningun miembro con el ci proporcionado");
             }
 
             var memberDetailsDTO = mapper.Map<MemberDetailsDTO>(member);

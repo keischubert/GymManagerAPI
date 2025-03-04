@@ -45,7 +45,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.MembersController",
-    "Method": "GetMembers",
+    "Method": "Get",
     "RelativePath": "api/members",
     "HttpMethod": "GET",
     "IsController": true,
@@ -55,11 +55,31 @@
         "Name": "name",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "gender",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ci",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "activeMembersFromDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[GymManagerAPI.Data.DTOs.MemberListDTO, GymManagerAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[GymManagerAPI.Data.DTOs.MemberListDTO, GymManagerAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "application/json"
         ],
@@ -252,70 +272,6 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
-    "Method": "GetTime",
-    "RelativePath": "api/members/{memberId}/Subscriptions/time",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "memberId",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "GymManagerAPI.Controllers.MembersController",
-    "Method": "GetActiveMembersByDate",
-    "RelativePath": "api/members/actives",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "date",
-        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[GymManagerAPI.Data.DTOs.MemberListDTO, GymManagerAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "GymManagerAPI.Controllers.MembersController",
-    "Method": "GetByCi",
-    "RelativePath": "api/members/by-ci",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "ci",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "GymManagerAPI.Data.DTOs.MemberDetailsDTO",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.PlansController",

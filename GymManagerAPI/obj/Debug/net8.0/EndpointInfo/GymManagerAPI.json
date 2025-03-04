@@ -92,33 +92,31 @@
             "schema": {
               "type": "string"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/MemberListDTO"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/members/actives": {
-      "get": {
-        "tags": [
-          "Members"
-        ],
-        "parameters": [
+          },
           {
-            "name": "date",
+            "name": "gender",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "ci",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "activeMembersFromDate",
             "in": "query",
             "schema": {
               "type": "string",
@@ -233,34 +231,6 @@
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemberDetailsDTO"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/members/by-ci": {
-      "get": {
-        "tags": [
-          "Members"
-        ],
-        "parameters": [
-          {
-            "name": "ci",
-            "in": "query",
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -617,28 +587,6 @@
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/members/{memberId}/Subscriptions/time": {
-      "get": {
-        "tags": [
-          "Subscriptions"
-        ],
-        "parameters": [
-          {
-            "name": "memberId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
