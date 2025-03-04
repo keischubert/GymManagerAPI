@@ -1,8 +1,10 @@
 ﻿namespace GymManagerAPI.Data.DTOs
 {
-    public class SubscriptionListDTO
+    public class SubscriptionDetailsDTO
     {
         public int Id { get; set; }
+
+        public string MemberName {  get; set; }
 
         public string PlanName { get; set; } //mapping from Payment.Plan
 
@@ -12,6 +14,6 @@
 
         public DateTime PaymentDate { get; set; } //mapping from Payment
 
-        public double TotalAmount {  get; set; } //mapping from Payment
+        public double TotalAmount { get; set; } //mapping from Payment
     }
 }

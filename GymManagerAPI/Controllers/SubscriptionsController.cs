@@ -80,7 +80,7 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Subscription>>> GetByMemberId([FromRoute] int memberId)
+        public async Task<ActionResult<IEnumerable<SubscriptionListDTO>>> GetByMemberId([FromRoute] int memberId)
         {
             //validation: verificar existencia del MemberId
             var doesMemberExists = await dbContext.Members.AnyAsync(m => m.Id == memberId);
@@ -102,19 +102,51 @@ namespace GymManagerAPI.Controllers
             return Ok(subscriptionListDTO);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<SubscriptionDTO>> GetById([FromRoute] int memberId, [FromRoute] int id)
+        [HttpGet("/api/[controller]")]
+        public async Task<ActionResult<IEnumerable<SubscriptionDTO>>> GetSubscriptions(
+            [FromQuery] DateTime? paymentDate,
+            [FromQuery] DateTime? paymentDateEnd,
+            [FromQuery] DateTime? expirationDate)
         {
-            var doesMemberExists = await dbContext.Members.AnyAsync(m => m.Id == memberId);
+            var query = dbContext.Subscriptions
+                .Include(x => x.Member)
+                .Include(x => x.Payment)
+                .ThenInclude(x => x.Plan)
+                .AsQueryable();
 
-            if (!doesMemberExists)
+            if(paymentDate.HasValue && !paymentDateEnd.HasValue)
             {
-                return NotFound("No existe ningun miembro con el id proporcionado.");
+                query = query
+                    .Where(x => x.Payment.DateTime.Date == paymentDate);
             }
 
+            if(paymentDate.HasValue && paymentDateEnd.HasValue)
+            {
+                query = query
+                    .Where(x => x.Payment.DateTime.Date >= paymentDate && x.Payment.DateTime.Date <= paymentDateEnd);
+            }
+
+            if (expirationDate.HasValue)
+            {
+                query = query
+                    .Where(x => x.ExpirationDate == expirationDate);
+            }
+
+            var subscriptionList = await query.ToListAsync();
+
+            var subscriptionDetailsDTOList = mapper.Map<List<SubscriptionDetailsDTO>>(subscriptionList);
+
+            return Ok(subscriptionDetailsDTOList);
+        }
+
+        [HttpGet("/api/[controller]/{id:int}")]
+        public async Task<ActionResult<SubscriptionDetailsDTO>> GetById([FromRoute] int id)
+        {
             var subscription = await dbContext.Subscriptions
-                .Where(s => s.Id == id && s.MemberId == memberId)
-                .FirstOrDefaultAsync();
+                .Include(x => x.Member)
+                .Include(x => x.Payment)
+                .ThenInclude(x => x.Plan)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (subscription == null)
             {
@@ -122,27 +154,17 @@ namespace GymManagerAPI.Controllers
             }
 
             //mapping: subscription a subscriptionDTO para la respuesta
-            var subscriptionDTO = mapper.Map<SubscriptionDTO>(subscription);
+            var subscriptionDetailsDTO = mapper.Map<SubscriptionDetailsDTO>(subscription);
 
-            return Ok(subscriptionDTO);
+            return Ok(subscriptionDetailsDTO);
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete([FromRoute] int memberId, [FromRoute] int id)
+        [HttpDelete("/api/[controller]/{id:int}")]
+        public async Task<ActionResult> Delete([FromRoute] int id)
         {
-            //validation: verificar existencia del MemberId
-            var doesMemberExists = await dbContext.Members.AnyAsync(m => m.Id == memberId);
-
-            if (!doesMemberExists)
-            {
-                return NotFound("No existe ningun miembro con el id proporcionado.");
-            }
-
             //validation: verificar que el Member tenga la subscripcion
             var subscription = await dbContext.Subscriptions
-                .Include(s => s.Payment)
-                .Where(s => s.Id == id &&  s.MemberId == memberId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if(subscription == null)
             {

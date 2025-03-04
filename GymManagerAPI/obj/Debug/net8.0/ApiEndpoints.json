@@ -146,30 +146,6 @@
     ]
   },
   {
-    "ContainingType": "GymManagerAPI.Controllers.MembersController",
-    "Method": "GetByIdDetails",
-    "RelativePath": "api/members/{id}/details",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "GymManagerAPI.Data.DTOs.MemberDetailsDTO",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
     "Method": "Create",
     "RelativePath": "api/members/{memberId}/Subscriptions",
@@ -216,7 +192,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[GymManagerAPI.Models.Subscription, GymManagerAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[GymManagerAPI.Data.DTOs.SubscriptionListDTO, GymManagerAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -225,58 +201,6 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
-    "Method": "GetById",
-    "RelativePath": "api/members/{memberId}/Subscriptions/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "memberId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "GymManagerAPI.Data.DTOs.SubscriptionDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
-    "Method": "Delete",
-    "RelativePath": "api/members/{memberId}/Subscriptions/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "memberId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.PlansController",
@@ -366,6 +290,84 @@
       {
         "Name": "planUpdateDTO",
         "Type": "GymManagerAPI.Data.DTOs.PlanUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
+    "Method": "GetSubscriptions",
+    "RelativePath": "api/Subscriptions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paymentDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "paymentDateEnd",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "expirationDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[GymManagerAPI.Data.DTOs.SubscriptionDTO, GymManagerAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
+    "Method": "GetById",
+    "RelativePath": "api/Subscriptions/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "GymManagerAPI.Data.DTOs.SubscriptionDetailsDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
+    "Method": "Delete",
+    "RelativePath": "api/Subscriptions/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

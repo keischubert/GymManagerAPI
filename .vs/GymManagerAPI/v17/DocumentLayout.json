@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\controllers\\subscriptionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\controllers\\subscriptionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\automapperprofiles\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\automapperprofiles\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\dtos\\memberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\dtos\\memberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\dtos\\subscriptiondetailsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\dtos\\subscriptiondetailsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\dtos\\memberlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\dtos\\memberlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\dtos\\subscriptionlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\dtos\\subscriptionlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\models\\member.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\models\\member.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\dtos\\subscriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\dtos\\subscriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,65 +34,67 @@
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SubscriptionDetailsDTO.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\SubscriptionDetailsDTO.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\DTOs\\SubscriptionDetailsDTO.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\SubscriptionDetailsDTO.cs",
+              "RelativeToolTip": "GymManagerAPI\\Data\\DTOs\\SubscriptionDetailsDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T17:35:17.585Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "MappingProfile.cs",
               "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\AutoMapperProfiles\\MappingProfile.cs",
               "RelativeDocumentMoniker": "GymManagerAPI\\Data\\AutoMapperProfiles\\MappingProfile.cs",
               "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\AutoMapperProfiles\\MappingProfile.cs",
               "RelativeToolTip": "GymManagerAPI\\Data\\AutoMapperProfiles\\MappingProfile.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAiwCEAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCEAAABhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T23:44:27.278Z",
+              "WhenOpened": "2025-03-04T17:32:33.433Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "MemberListDTO.cs",
-              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\MemberListDTO.cs",
-              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\DTOs\\MemberListDTO.cs",
-              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\MemberListDTO.cs",
-              "RelativeToolTip": "GymManagerAPI\\Data\\DTOs\\MemberListDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "SubscriptionListDTO.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\SubscriptionListDTO.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\DTOs\\SubscriptionListDTO.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\SubscriptionListDTO.cs",
+              "RelativeToolTip": "GymManagerAPI\\Data\\DTOs\\SubscriptionListDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T23:15:30.166Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MemberDTO.cs",
-              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\MemberDTO.cs",
-              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\DTOs\\MemberDTO.cs",
-              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\MemberDTO.cs",
-              "RelativeToolTip": "GymManagerAPI\\Data\\DTOs\\MemberDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T23:15:27.501Z",
+              "WhenOpened": "2025-03-04T14:53:12.436Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Member.cs",
-              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Models\\Member.cs",
-              "RelativeDocumentMoniker": "GymManagerAPI\\Models\\Member.cs",
-              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Models\\Member.cs",
-              "RelativeToolTip": "GymManagerAPI\\Models\\Member.cs",
+              "Title": "SubscriptionDTO.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\SubscriptionDTO.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\DTOs\\SubscriptionDTO.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\SubscriptionDTO.cs",
+              "RelativeToolTip": "GymManagerAPI\\Data\\DTOs\\SubscriptionDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T19:34:14.14Z"
+              "WhenOpened": "2025-03-04T14:50:30.054Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MembersController.cs",
-              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\MembersController.cs",
-              "RelativeDocumentMoniker": "GymManagerAPI\\Controllers\\MembersController.cs",
-              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\MembersController.cs",
-              "RelativeToolTip": "GymManagerAPI\\Controllers\\MembersController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAL0AAAAeAAAAAAAAAA==",
+              "Title": "SubscriptionsController.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\SubscriptionsController.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Controllers\\SubscriptionsController.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\SubscriptionsController.cs",
+              "RelativeToolTip": "GymManagerAPI\\Controllers\\SubscriptionsController.cs",
+              "ViewState": "AgIAAIUAAAAAAAAAAAAIwKIAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T00:07:17.734Z",
+              "WhenOpened": "2025-03-04T14:43:18.931Z",
               "EditorCaption": ""
             }
           ]
