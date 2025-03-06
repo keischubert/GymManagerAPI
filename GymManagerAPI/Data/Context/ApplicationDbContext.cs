@@ -52,6 +52,9 @@ namespace GymManagerAPI.Data.Context
                 .WithOne(s => s.DeletedSubscription)
                 .HasForeignKey<DeletedSubscription>(ds => ds.SubscriptionId);
 
+            modelBuilder.Entity<Subscription>()
+                .HasQueryFilter(s => !s.IsDeleted);
+
             base.OnModelCreating(modelBuilder);
         }
     }

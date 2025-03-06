@@ -25,7 +25,7 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Subscription>> Create(int memberId, [FromBody] SubscriptionCreateDTO subscriptionCreateDTO)
+        public async Task<ActionResult> Create(int memberId, [FromBody] SubscriptionCreateDTO subscriptionCreateDTO)
         {
             //validation: verificar si el memberId existe en Members
             var doesMemberExists = await dbContext.Members
@@ -35,20 +35,6 @@ namespace GymManagerAPI.Controllers
             {
                 return NotFound("No existe ningun miembro con el id proporcionado.");
             }
-
-            //validation: si existe algun plan activo, la fecha de inicio sera la misma que la expiracion
-            var expirationDateLastSubscription = await dbContext.Subscriptions
-                .Where(s => s.MemberId == memberId)
-                .OrderByDescending(s => s.ExpirationDate)
-                .Select(x => x.ExpirationDate)
-                .FirstOrDefaultAsync();
-
-            if (expirationDateLastSubscription >= subscriptionCreateDTO.StartDate)
-            {
-                return BadRequest($"Ocurrio un error al asignar la fecha de inicio de la suscripcion debido a que ya hay una suscripcion activa.");
-            }
-
-            subscriptionCreateDTO.StartDate = expirationDateLastSubscription;
 
             //validation: verificar si el plan seleccionado existe
             var planSelected = await dbContext.Plans
@@ -63,6 +49,16 @@ namespace GymManagerAPI.Controllers
             var subscription = mapper.Map<Subscription>(subscriptionCreateDTO);
 
             subscription.MemberId = memberId;
+
+            //validation: si existe algun plan activo, la fecha de inicio sera la misma que la expiracion
+            var expirationDateLastSubscription = await dbContext.Subscriptions
+                .Where(s => s.MemberId == memberId)
+                .OrderByDescending(s => s.ExpirationDate)
+                .Select(x => x.ExpirationDate)
+                .FirstOrDefaultAsync();
+
+            subscription.StartDate = expirationDateLastSubscription >= DateTime.Now ? expirationDateLastSubscription : DateTime.Now;
+
             subscription.ExpirationDate = subscription.StartDate.AddDays(planSelected.DurationInDays);
 
             //payment

@@ -59,7 +59,7 @@ namespace GymManagerAPI.Controllers
 
         //Endpoint para filtrar members segun algunos parametros
         [HttpGet]
-        public async Task<ActionResult<List<MemberListDTO>>> Get(
+        public async Task<ActionResult<IEnumerable<MemberListDTO>>> Get(
             [FromQuery] string name, 
             [FromQuery] int? gender, 
             [FromQuery] string ci, 
