@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\automapperprofiles\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\automapperprofiles\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\dtos\\paymentdetailcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\dtos\\paymentdetailcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\dtos\\paymentcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\dtos\\paymentcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\controllers\\subscriptionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -13,6 +21,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\dtos\\subscriptioncreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\dtos\\subscriptioncreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\models\\paymentmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\models\\paymentmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +38,97 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SubscriptionCreateDTO.cs",
-              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\SubscriptionCreateDTO.cs",
-              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\DTOs\\SubscriptionCreateDTO.cs",
-              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\SubscriptionCreateDTO.cs",
-              "RelativeToolTip": "GymManagerAPI\\Data\\DTOs\\SubscriptionCreateDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T12:15:35.521Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MembersController.cs",
-              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\MembersController.cs",
-              "RelativeDocumentMoniker": "GymManagerAPI\\Controllers\\MembersController.cs",
-              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\MembersController.cs",
-              "RelativeToolTip": "GymManagerAPI\\Controllers\\MembersController.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAwwGcAAABMAAAAAAAAAA==",
+              "Title": "MappingProfile.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\AutoMapperProfiles\\MappingProfile.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\AutoMapperProfiles\\MappingProfile.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\AutoMapperProfiles\\MappingProfile.cs",
+              "RelativeToolTip": "GymManagerAPI\\Data\\AutoMapperProfiles\\MappingProfile.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwDAAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T01:35:48.361Z",
+              "WhenOpened": "2025-03-08T15:19:40.01Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "PaymentDetailCreateDTO.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\PaymentDetailCreateDTO.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\DTOs\\PaymentDetailCreateDTO.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\PaymentDetailCreateDTO.cs",
+              "RelativeToolTip": "GymManagerAPI\\Data\\DTOs\\PaymentDetailCreateDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T15:18:36.571Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "SubscriptionsController.cs",
               "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\SubscriptionsController.cs",
               "RelativeDocumentMoniker": "GymManagerAPI\\Controllers\\SubscriptionsController.cs",
               "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\SubscriptionsController.cs",
               "RelativeToolTip": "GymManagerAPI\\Controllers\\SubscriptionsController.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAtwBcAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAQwFQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T14:43:18.931Z",
+              "WhenOpened": "2025-03-08T15:05:48.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PaymentCreateDTO.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\PaymentCreateDTO.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\DTOs\\PaymentCreateDTO.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\PaymentCreateDTO.cs",
+              "RelativeToolTip": "GymManagerAPI\\Data\\DTOs\\PaymentCreateDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T14:59:03.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SubscriptionCreateDTO.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\SubscriptionCreateDTO.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\DTOs\\SubscriptionCreateDTO.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\DTOs\\SubscriptionCreateDTO.cs",
+              "RelativeToolTip": "GymManagerAPI\\Data\\DTOs\\SubscriptionCreateDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T14:58:54.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PaymentMethod.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Models\\PaymentMethod.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Models\\PaymentMethod.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Models\\PaymentMethod.cs",
+              "RelativeToolTip": "GymManagerAPI\\Models\\PaymentMethod.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T13:57:19.223Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Models\\Payment.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Models\\Payment.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Models\\Payment.cs",
+              "RelativeToolTip": "GymManagerAPI\\Models\\Payment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T13:56:24.977Z",
               "EditorCaption": ""
             }
           ]

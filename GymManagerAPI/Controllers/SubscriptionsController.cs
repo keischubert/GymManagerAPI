@@ -63,7 +63,15 @@ namespace GymManagerAPI.Controllers
 
             //payment
             subscription.Payment.DateTime = DateTime.Now;
-            subscription.Payment.TotalAmount = planSelected.Price;
+
+            var totalAmount = subscription.Payment.PaymentDetails.Sum(x => x.Amount);
+
+            if (totalAmount != planSelected.Price)
+            {
+                return BadRequest("Hay un problema con el pago, este no coincide con el precio del plan.");
+            }
+
+            subscription.Payment.TotalAmount = subscription.Payment.PaymentDetails.Sum(x => x.Amount);
 
             //registrando la subscripcion y el pago
             dbContext.Add(subscription);

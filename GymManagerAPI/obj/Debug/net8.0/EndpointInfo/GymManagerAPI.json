@@ -426,24 +426,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Subscription"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Subscription"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Subscription"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       },
@@ -873,8 +856,7 @@
       },
       "Payment": {
         "required": [
-          "dateTime",
-          "plan"
+          "dateTime"
         ],
         "type": "object",
         "properties": {
@@ -903,16 +885,99 @@
           },
           "plan": {
             "$ref": "#/components/schemas/Plan"
+          },
+          "paymentDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentDetail"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
       "PaymentCreateDTO": {
+        "required": [
+          "paymentDetails"
+        ],
         "type": "object",
         "properties": {
           "planId": {
             "type": "integer",
             "format": "int32"
+          },
+          "paymentDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentDetailCreateDTO"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paymentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "payment": {
+            "$ref": "#/components/schemas/Payment"
+          },
+          "paymentMethodId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentDetailCreateDTO": {
+        "type": "object",
+        "properties": {
+          "paymentMethodId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethod": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "maxLength": 50,
+            "minLength": 0,
+            "type": "string"
+          },
+          "paymentDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentDetail"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1062,15 +1127,10 @@
       },
       "SubscriptionCreateDTO": {
         "required": [
-          "payment",
-          "startDate"
+          "payment"
         ],
         "type": "object",
         "properties": {
-          "startDate": {
-            "type": "string",
-            "format": "date-time"
-          },
           "payment": {
             "$ref": "#/components/schemas/PaymentCreateDTO"
           }

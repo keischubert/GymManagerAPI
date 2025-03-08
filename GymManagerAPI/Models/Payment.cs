@@ -17,7 +17,9 @@ namespace GymManagerAPI.Models
 
         public int PlanId { get; set; }
 
-        [Required]
         public Plan Plan { get; set; }
+
+        public ICollection<PaymentDetail> PaymentDetails { get; set; }
+
     }
 }

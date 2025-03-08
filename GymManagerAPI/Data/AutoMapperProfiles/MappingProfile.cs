@@ -45,6 +45,8 @@ namespace GymManagerAPI.Data.AutoMapperProfiles
             CreateMap<PlanCreateDTO, Plan>();
 
             CreateMap<Plan, PlanDTO>();
+
+            CreateMap<PaymentDetailCreateDTO, PaymentDetail>();
         }
     }
 }

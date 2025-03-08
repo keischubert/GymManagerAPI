@@ -124,5 +124,29 @@
         <member name="M:GymManagerAPI.Migrations.CreateTableDeletedSubscriptions.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:GymManagerAPI.Migrations.CreateTablePaymentMethodsAndInsertRecords">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePaymentMethodsAndInsertRecords.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePaymentMethodsAndInsertRecords.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePaymentMethodsAndInsertRecords.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.CreateTablePaymentDetails">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePaymentDetails.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePaymentDetails.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTablePaymentDetails.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

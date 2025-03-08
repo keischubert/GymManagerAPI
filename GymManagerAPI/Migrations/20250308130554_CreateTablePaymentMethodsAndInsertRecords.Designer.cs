@@ -4,6 +4,7 @@ using GymManagerAPI.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagerAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250308130554_CreateTablePaymentMethodsAndInsertRecords")]
+    partial class CreateTablePaymentMethodsAndInsertRecords
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,32 +133,6 @@ namespace GymManagerAPI.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("GymManagerAPI.Models.PaymentDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentMethodId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaymentId");
-
-                    b.HasIndex("PaymentMethodId");
-
-                    b.ToTable("PaymentDetails");
-                });
-
             modelBuilder.Entity("GymManagerAPI.Models.PaymentMethod", b =>
                 {
                     b.Property<int>("Id")
@@ -266,25 +243,6 @@ namespace GymManagerAPI.Migrations
                     b.Navigation("Subscription");
                 });
 
-            modelBuilder.Entity("GymManagerAPI.Models.PaymentDetail", b =>
-                {
-                    b.HasOne("GymManagerAPI.Models.Payment", "Payment")
-                        .WithMany("PaymentDetails")
-                        .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GymManagerAPI.Models.PaymentMethod", "PaymentMethod")
-                        .WithMany("PaymentDetails")
-                        .HasForeignKey("PaymentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Payment");
-
-                    b.Navigation("PaymentMethod");
-                });
-
             modelBuilder.Entity("GymManagerAPI.Models.Subscription", b =>
                 {
                     b.HasOne("GymManagerAPI.Models.Member", "Member")
@@ -304,16 +262,6 @@ namespace GymManagerAPI.Migrations
             modelBuilder.Entity("GymManagerAPI.Models.Member", b =>
                 {
                     b.Navigation("Subscriptions");
-                });
-
-            modelBuilder.Entity("GymManagerAPI.Models.Payment", b =>
-                {
-                    b.Navigation("PaymentDetails");
-                });
-
-            modelBuilder.Entity("GymManagerAPI.Models.PaymentMethod", b =>
-                {
-                    b.Navigation("PaymentDetails");
                 });
 
             modelBuilder.Entity("GymManagerAPI.Models.Plan", b =>
