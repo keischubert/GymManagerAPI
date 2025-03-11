@@ -52,27 +52,27 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "name",
+        "Name": "Name",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "gender",
+        "Name": "GenderId",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
-        "Name": "ci",
+        "Name": "Ci",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "email",
+        "Name": "Email",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "activeMembersFromDate",
+        "Name": "ActiveMembersFromDate",
         "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }
@@ -137,7 +137,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "GymManagerAPI.Models.Member",
+        "Type": "GymManagerAPI.Data.DTOs.MemberDTO",
         "MediaTypes": [
           "application/json"
         ],

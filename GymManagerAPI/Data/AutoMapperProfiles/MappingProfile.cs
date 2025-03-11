@@ -10,8 +10,6 @@ namespace GymManagerAPI.Data.AutoMapperProfiles
         {
             CreateMap<MemberCreateDTO, Member>();
 
-            //CreateMap<Member, MemberDTO>();
-
             CreateMap<Member, MemberDTO>()
                 .ForMember(dest => dest.GenderName, options => options.MapFrom(src => src.Gender.Name))
 

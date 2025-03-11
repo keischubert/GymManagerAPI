@@ -5,6 +5,7 @@ namespace GymManagerAPI.Data.DTOs
 {
     public class MemberCreateDTO
     {
+        [Required]
         public int GenderId { get; set; }
 
         [Required]
