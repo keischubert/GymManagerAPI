@@ -485,7 +485,7 @@
         ],
         "parameters": [
           {
-            "name": "paymentDate",
+            "name": "PaymentDate",
             "in": "query",
             "schema": {
               "type": "string",
@@ -493,7 +493,7 @@
             }
           },
           {
-            "name": "paymentDateEnd",
+            "name": "PaymentDateEnd",
             "in": "query",
             "schema": {
               "type": "string",
@@ -501,7 +501,7 @@
             }
           },
           {
-            "name": "expirationDate",
+            "name": "ExpirationDate",
             "in": "query",
             "schema": {
               "type": "string",

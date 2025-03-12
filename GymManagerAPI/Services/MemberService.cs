@@ -1,36 +1,34 @@
-﻿using System.Reflection;
-using AutoMapper;
+﻿using AutoMapper;
 using GymManagerAPI.Data.Common;
-using GymManagerAPI.Data.Context;
 using GymManagerAPI.Data.DTOs;
+using GymManagerAPI.Interfaces;
 using GymManagerAPI.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace GymManagerAPI.Services
 {
     public class MemberService
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly IMemberRepository memberRepository;
+        private readonly IGenderRepository genderRepository;
         private readonly IMapper mapper;
 
-        public MemberService(ApplicationDbContext dbContext, IMapper mapper)
+        public MemberService(IMemberRepository memberRepository, IGenderRepository genderRepository, IMapper mapper)
         {
-            this.dbContext = dbContext;
+            this.memberRepository = memberRepository;
+            this.genderRepository = genderRepository;
             this.mapper = mapper;
         }
 
         public async Task<OperationResult<MemberDTO>> CreateMember(MemberCreateDTO memberCreateDTO)
         {
             //validation: no puede haber miembros con ci iguales
-            var doesCiExists = await DoesCiExists(memberCreateDTO.Ci);
-
-            if (doesCiExists)
+            if (!await memberRepository.DoesCiExistsAsync(memberCreateDTO.Ci))
             {
                 return OperationResult<MemberDTO>.Fail(400, "El Ci ingresado ya existe");
             }
 
             //validation: verificar si el genderId existe en Genders y este fue enviado en la solicitud
-            var doesGenderExists = memberCreateDTO.GenderId != 0 ? await DoesGenderExists(memberCreateDTO.GenderId) : false;
+            var doesGenderExists = memberCreateDTO.GenderId != 0 ? await genderRepository.DoesGenderExists(memberCreateDTO.GenderId) : false;
 
             if (!doesGenderExists)
             {
@@ -41,8 +39,8 @@ namespace GymManagerAPI.Services
             var member = mapper.Map<Member>(memberCreateDTO);
 
             //db: insertando Member
-            dbContext.Members.Add(member);
-            await dbContext.SaveChangesAsync();
+            await memberRepository.AddAsync(member);
+            await memberRepository.SaveChangesAsync();
 
             //mapping: Member a MemberDetailDTO para la respuesta
             var memberDTO = mapper.Map<MemberDTO>(member);
@@ -52,40 +50,7 @@ namespace GymManagerAPI.Services
 
         public async Task<IEnumerable<MemberListDTO>> GetFilteredMembers(MemberSearchDTO memberSearchDTO)
         {
-            var query = dbContext.Members.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(memberSearchDTO.Name))
-            {
-                query = query.Where(x => x.Name.Contains(memberSearchDTO.Name));
-            }
-
-            if (memberSearchDTO.GenderId.HasValue)
-            {
-                query = query.Where(x => x.GenderId == memberSearchDTO.GenderId);
-            }
-
-            if (!string.IsNullOrWhiteSpace(memberSearchDTO.Ci))
-            {
-                query = query.Where(x => x.Ci.Equals(memberSearchDTO.Ci));
-            }
-
-            if (!string.IsNullOrWhiteSpace(memberSearchDTO.Email))
-            {
-                query = query.Where(x => x.Email.Equals(memberSearchDTO.Email));
-            }
-
-            if (memberSearchDTO.ActiveMembersFromDate.HasValue)
-            {
-                var activeMemberIds = await dbContext.Subscriptions
-                    .Where(x => x.ExpirationDate >= memberSearchDTO.ActiveMembersFromDate)
-                    .GroupBy(x => x.MemberId)
-                    .Select(x => x.Key)
-                    .ToListAsync();
-
-                query = query.Where(x => activeMemberIds.Contains(x.Id));
-            }
-
-            var memberList = await query.ToListAsync();
+            var memberList = await memberRepository.GetFilteredMembersAsync(memberSearchDTO);
 
             var memberListDTO = mapper.Map<List<MemberListDTO>>(memberList);
 
@@ -94,16 +59,7 @@ namespace GymManagerAPI.Services
 
         public async Task<OperationResult<MemberDTO>> GetMemberDTOById(int id, bool details)
         {
-            var query = dbContext.Members.AsQueryable();
-
-            if (details)
-            {
-                query = query
-                    .Include(x => x.Gender)
-                    .Include(x => x.Subscriptions);
-            }
-
-            var member = await query.FirstOrDefaultAsync(x => x.Id == id);
+            var member = await memberRepository.GetByIdWithDetailsAsync(id, details);
 
             //validation: existencia del miembro
             if (member == null)
@@ -119,7 +75,7 @@ namespace GymManagerAPI.Services
         public async Task<OperationResult<MemberDTO>> UpdateMember(int id, MemberUpdateDTO memberUpdateDTO)
         {
             //validation: verificar si existe el miembro con id obtenido por ruta
-            var member = await dbContext.Members.FindAsync(id);
+            var member = await memberRepository.GetByIdAsync(id);
 
             if (member == null)
             {
@@ -139,7 +95,7 @@ namespace GymManagerAPI.Services
 
             if (wasCiChanged)
             {
-                var ciInputExists = await DoesCiExists(memberUpdateDTO.Ci);
+                var ciInputExists = await memberRepository.DoesCiExistsAsync(memberUpdateDTO.Ci);
 
                 if (ciInputExists)
                 {
@@ -154,7 +110,7 @@ namespace GymManagerAPI.Services
 
             if (wasGenderIdChanged)
             {
-                var doesGenderExists = await DoesGenderExists(memberUpdateDTO.GenderId);
+                var doesGenderExists = await genderRepository.DoesGenderExists(memberUpdateDTO.GenderId);
 
                 if (!doesGenderExists)
                 {
@@ -172,29 +128,12 @@ namespace GymManagerAPI.Services
             }
 
             //database: update
-            dbContext.Members.Update(member);
-            await dbContext.SaveChangesAsync();
+            memberRepository.Update(member);
+            await memberRepository.SaveChangesAsync();
 
             var memberDTO = mapper.Map<MemberDTO>(member);
 
             return OperationResult<MemberDTO>.Ok(memberDTO);
         }
-
-
-
-
-
-
-        public async Task<bool> DoesCiExists(string ci)
-        {
-            return await dbContext.Members.AnyAsync(m => m.Ci.Equals(ci));
-        }
-
-        public async Task<bool> DoesGenderExists(int id)
-        {
-            return await dbContext.Genders.AnyAsync(g => g.Id == id);
-        }
-
-
     }
 }

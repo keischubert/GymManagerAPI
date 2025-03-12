@@ -3,6 +3,8 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using GymManagerAPI.Data.AutoMapperProfiles;
 using GymManagerAPI.Data.Context;
+using GymManagerAPI.Interfaces;
+using GymManagerAPI.Repositories;
 using GymManagerAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -21,7 +23,17 @@ namespace GymManagerAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            builder.Services.AddTransient<MemberService>();
+            builder.Services.AddScoped<MemberService>();
+
+            builder.Services.AddScoped<SubscriptionService>();
+
+            builder.Services.AddTransient<IMemberRepository, MemberRepository>();
+
+            builder.Services.AddTransient<IGenderRepository, GenderRepository>();
+
+            builder.Services.AddTransient<IPlanRepository, PlanRepository>();
+
+            builder.Services.AddTransient<ISubscriptionRepository, SubscriptionRepository>();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 

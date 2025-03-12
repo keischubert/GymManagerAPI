@@ -1,13 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AutoMapper;
-using AutoMapper.Execution;
-using GymManagerAPI.Data.Context;
+﻿using GymManagerAPI.Data.Context;
 using GymManagerAPI.Data.DTOs;
-using GymManagerAPI.Models;
-using Microsoft.AspNetCore.Http;
+using GymManagerAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace GymManagerAPI.Controllers
 {
@@ -15,70 +9,24 @@ namespace GymManagerAPI.Controllers
     [ApiController]
     public class SubscriptionsController : ControllerBase
     {
-        private readonly ApplicationDbContext dbContext;
-        private readonly IMapper mapper;
+        private readonly SubscriptionService subscriptionService;
 
-        public SubscriptionsController(ApplicationDbContext dbContext, IMapper mapper)
+        public SubscriptionsController(SubscriptionService subscriptionService)
         {
-            this.dbContext = dbContext;
-            this.mapper = mapper;
+            this.subscriptionService = subscriptionService;
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(int memberId, [FromBody] SubscriptionCreateDTO subscriptionCreateDTO)
         {
-            //validation: verificar si el memberId existe en Members
-            var doesMemberExists = await dbContext.Members
-                .AnyAsync(m => m.Id == memberId);
+            var createdSubscription = await subscriptionService.CreateSubscription(memberId, subscriptionCreateDTO);
 
-            if (!doesMemberExists)
+            if(!createdSubscription.Success)
             {
-                return NotFound("No existe ningun miembro con el id proporcionado.");
+                return StatusCode(createdSubscription.ErrorStatusCode, createdSubscription.ErrorMessage);
             }
 
-            //validation: verificar si el plan seleccionado existe
-            var planSelected = await dbContext.Plans
-                .FindAsync(subscriptionCreateDTO.Payment.PlanId);
-
-            if(planSelected == null)
-            {
-                return NotFound("El plan proporcionado no existe");
-            }
-
-            //mapping: SubscriptionCreateDTO a Subscription
-            var subscription = mapper.Map<Subscription>(subscriptionCreateDTO);
-
-            subscription.MemberId = memberId;
-
-            //validation: si existe algun plan activo, la fecha de inicio sera la misma que la expiracion
-            var expirationDateLastSubscription = await dbContext.Subscriptions
-                .Where(s => s.MemberId == memberId)
-                .OrderByDescending(s => s.ExpirationDate)
-                .Select(x => x.ExpirationDate)
-                .FirstOrDefaultAsync();
-
-            subscription.StartDate = expirationDateLastSubscription >= DateTime.Now ? expirationDateLastSubscription : DateTime.Now;
-
-            subscription.ExpirationDate = subscription.StartDate.AddDays(planSelected.DurationInDays);
-
-            //payment
-            subscription.Payment.DateTime = DateTime.Now;
-
-            var totalAmount = subscription.Payment.PaymentDetails.Sum(x => x.Amount);
-
-            if (totalAmount != planSelected.Price)
-            {
-                return BadRequest("Hay un problema con el pago, este no coincide con el precio del plan.");
-            }
-
-            subscription.Payment.TotalAmount = subscription.Payment.PaymentDetails.Sum(x => x.Amount);
-
-            //registrando la subscripcion y el pago
-            dbContext.Add(subscription);
-            await dbContext.SaveChangesAsync();
-
-            //mapping: Subscription a SubscriptionDTO para la respuesta
-            var subscriptionDTO = mapper.Map<SubscriptionDTO>(subscription);
+            var subscriptionDTO = createdSubscription.Data;
 
             return CreatedAtAction("GetById", new { memberId = subscriptionDTO.MemberId, id = subscriptionDTO.Id }, subscriptionDTO);
         }
@@ -86,79 +34,39 @@ namespace GymManagerAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SubscriptionListDTO>>> GetByMemberId([FromRoute] int memberId)
         {
-            //validation: verificar existencia del MemberId
-            var doesMemberExists = await dbContext.Members.AnyAsync(m => m.Id == memberId);
+            var result = await subscriptionService.GetSubscriptionsByMember(memberId);
 
-            if (!doesMemberExists)
+            if (!result.Success)
             {
-                return NotFound("No existe ningun miembro con el id proporcionado.");
+                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
             }
 
-            var subscriptionList = await dbContext.Subscriptions
-                .Where(s => s.MemberId == memberId)
-                .OrderByDescending(s => s.ExpirationDate)
-                .Include(s => s.Payment)
-                .ThenInclude(p => p.Plan)
-                .ToListAsync();
+            var subscriptionList = result.Data;
 
-            var subscriptionListDTO = mapper.Map<List<SubscriptionListDTO>>(subscriptionList);
-
-            return Ok(subscriptionListDTO);
+            return Ok(subscriptionList);
         }
 
         [HttpGet("/api/[controller]")]
-        public async Task<ActionResult<IEnumerable<SubscriptionDTO>>> GetSubscriptions(
-            [FromQuery] DateTime? paymentDate,
-            [FromQuery] DateTime? paymentDateEnd,
-            [FromQuery] DateTime? expirationDate)
+        public async Task<ActionResult<IEnumerable<SubscriptionDTO>>> GetSubscriptions([FromQuery] SubscriptionSearchDTO subscriptionSearchDTO)
         {
-            var query = dbContext.Subscriptions
-                .Include(x => x.Member)
-                .Include(x => x.Payment)
-                .ThenInclude(x => x.Plan)
-                .AsQueryable();
+            var result = await subscriptionService.GetFilteredSubscriptions(subscriptionSearchDTO);
 
-            if(paymentDate.HasValue && !paymentDateEnd.HasValue)
-            {
-                query = query
-                    .Where(x => x.Payment.DateTime.Date == paymentDate);
-            }
+            var subscriptionList = result.Data;
 
-            if(paymentDate.HasValue && paymentDateEnd.HasValue)
-            {
-                query = query
-                    .Where(x => x.Payment.DateTime.Date >= paymentDate && x.Payment.DateTime.Date <= paymentDateEnd);
-            }
-
-            if (expirationDate.HasValue)
-            {
-                query = query
-                    .Where(x => x.ExpirationDate == expirationDate);
-            }
-
-            var subscriptionList = await query.ToListAsync();
-
-            var subscriptionDetailsDTOList = mapper.Map<List<SubscriptionDetailsDTO>>(subscriptionList);
-
-            return Ok(subscriptionDetailsDTOList);
+            return Ok(subscriptionList);
         }
 
         [HttpGet("/api/[controller]/{id:int}")]
         public async Task<ActionResult<SubscriptionDetailsDTO>> GetById([FromRoute] int id)
         {
-            var subscription = await dbContext.Subscriptions
-                .Include(x => x.Member)
-                .Include(x => x.Payment)
-                .ThenInclude(x => x.Plan)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var result = await subscriptionService.GetSubscriptionById(id);
 
-            if (subscription == null)
+            if (!result.Success)
             {
-                return BadRequest("Ocurrio un error! El miembro no cuenta con ninguna suscripcion con el id proporcionado");
+                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
             }
 
-            //mapping: subscription a subscriptionDTO para la respuesta
-            var subscriptionDetailsDTO = mapper.Map<SubscriptionDetailsDTO>(subscription);
+            var subscriptionDetailsDTO = result.Data;
 
             return Ok(subscriptionDetailsDTO);
         }
@@ -167,30 +75,12 @@ namespace GymManagerAPI.Controllers
         public async Task<ActionResult> Delete([FromRoute] int id)
         {
             //validation: verificar que el Member tenga la subscripcion
-            var subscription = await dbContext.Subscriptions
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var result = await subscriptionService.SoftDeleteSubscription(id);
 
-            if(subscription == null)
+            if (!result.Success)
             {
-                return BadRequest("Ocurrio un error! El miembro no cuenta con ninguna suscripcion con el id proporcionado");
+                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
             }
-
-            //apply: aplicamos el softdelete
-            subscription.IsDeleted = true;
-            dbContext.Subscriptions.Update(subscription);
-
-            //registramos el softdelete en DeletedSubscriptions
-            var deletedSubscription = new DeletedSubscription()
-            {
-                SubscriptionId = subscription.Id,
-                DeletedBy = "Juan",
-                DeletedAt = DateTime.Now
-            };
-
-            dbContext.DeletedSubscriptions.Add(deletedSubscription);
-            
-            await dbContext.SaveChangesAsync();
-            
 
             return NoContent();
         }

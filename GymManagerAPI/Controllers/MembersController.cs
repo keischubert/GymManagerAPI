@@ -1,11 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AutoMapper;
-using GymManagerAPI.Data.Context;
-using GymManagerAPI.Data.DTOs;
-using GymManagerAPI.Models;
+﻿using GymManagerAPI.Data.DTOs;
 using GymManagerAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GymManagerAPI.Controllers
 {
