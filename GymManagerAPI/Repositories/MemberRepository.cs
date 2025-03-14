@@ -90,12 +90,5 @@ namespace GymManagerAPI.Repositories
 
             return expirationDateLastSubscription;
         }
-
-        public void Update(Member member)
-        {
-            applicationDbContext.Members.Update(member);
-        }
-
-
     }
 }

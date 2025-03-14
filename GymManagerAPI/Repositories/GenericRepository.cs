@@ -29,6 +29,11 @@ namespace GymManagerAPI.Repositories
             return await table.FindAsync(id);
         }
 
+        public void Update(T model)
+        {
+            table.Update(model);
+        }
+
         public async Task SaveChangesAsync()
         {
             await dbContext.SaveChangesAsync();

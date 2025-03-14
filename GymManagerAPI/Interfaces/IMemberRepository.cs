@@ -7,7 +7,6 @@ namespace GymManagerAPI.Interfaces
     {
         Task<IEnumerable<Member>> GetFilteredMembersAsync(MemberSearchDTO memberSearchDTO);
         Task<Member> GetByIdWithDetailsAsync(int id, bool details);
-        void Update(Member member);
         Task<bool> DoesMemberExistsAsync (int id);
         Task<bool> DoesCiExistsAsync(string ci);
         Task<DateTime> MemberLastSubscriptionExpirationDate(int id);

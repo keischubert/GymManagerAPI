@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using GymManagerAPI.Data.Context;
 using GymManagerAPI.Data.DTOs;
-using Microsoft.AspNetCore.Http;
+using GymManagerAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GymManagerAPI.Controllers
 {
@@ -11,23 +9,63 @@ namespace GymManagerAPI.Controllers
     [ApiController]
     public class GendersController : ControllerBase
     {
-        private readonly ApplicationDbContext applicationDbContext;
-        private readonly IMapper mapper;
+        private readonly GenderService genderService;
 
-        public GendersController(ApplicationDbContext applicationDbContext, IMapper mapper)
+        public GendersController(GenderService genderService)
         {
-            this.applicationDbContext = applicationDbContext;
-            this.mapper = mapper;
+            this.genderService = genderService;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(GenderCreateDTO genderCreateDTO)
+        {
+            var result = await genderService.Create(genderCreateDTO);
+
+            var genderDTO = result.Data;
+
+            return CreatedAtAction("GetById", new { id = genderDTO.Id }, genderDTO);
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<GenderDTO>> GetById(int id)
+        {
+            var result = await genderService.GetById(id);
+
+            if (!result.Success)
+            {
+                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
+            }
+
+            var genderDTO = result.Data;
+
+            return Ok(genderDTO);
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GenderDTO>>> GetAll()
         {
-            var genderList = await applicationDbContext.Genders.ToListAsync();
+            var result = await genderService.GetAll();
 
-            var genderDTOList = mapper.Map<List<GenderDTO>>(genderList);
+            var genderDTOList = result.Data;
 
             return Ok(genderDTOList);
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<GenderDTO>> Update(int id, GenderUpdateDTO genderUpdateDTO)
+        {
+            var result = await genderService.UpdateGender(id, genderUpdateDTO);
+
+            if (!result.Success)
+            {
+                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
+            }
+
+            var genderDTO = result.Data;
+
+            return Ok(genderDTO);
+        }
+
+
     }
 }

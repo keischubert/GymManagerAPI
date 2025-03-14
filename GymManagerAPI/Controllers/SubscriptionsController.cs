@@ -1,5 +1,4 @@
-﻿using GymManagerAPI.Data.Context;
-using GymManagerAPI.Data.DTOs;
+﻿using GymManagerAPI.Data.DTOs;
 using GymManagerAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 

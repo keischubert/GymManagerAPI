@@ -40,6 +40,10 @@ namespace GymManagerAPI.Data.AutoMapperProfiles
 
             CreateMap<Gender, GenderDTO>();
 
+            CreateMap<GenderCreateDTO, Gender>();
+
+            CreateMap<GenderUpdateDTO, Gender>();
+
             CreateMap<PlanCreateDTO, Plan>();
 
             CreateMap<Plan, PlanDTO>();

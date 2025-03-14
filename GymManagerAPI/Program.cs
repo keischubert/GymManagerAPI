@@ -23,9 +23,11 @@ namespace GymManagerAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            builder.Services.AddScoped<MemberService>();
+            builder.Services.AddTransient<MemberService>();
 
-            builder.Services.AddScoped<SubscriptionService>();
+            builder.Services.AddTransient<SubscriptionService>();
+
+            builder.Services.AddTransient<GenderService>();
 
             builder.Services.AddTransient<IMemberRepository, MemberRepository>();
 
