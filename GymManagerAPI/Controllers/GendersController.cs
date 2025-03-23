@@ -65,7 +65,5 @@ namespace GymManagerAPI.Controllers
 
             return Ok(genderDTO);
         }
-
-
     }
 }
