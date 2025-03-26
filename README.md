@@ -10,7 +10,4 @@ Base de datos relacional: SQL Server
 ORM: Entity Framework Core para la interaccion de la base de datos. Creacion de la base de datos utilizando el enfoque Code First a traves de migraciones.
 AutoMapper: Mapeo de modelos a DTOs para no exponer datos innecesarios o importantes en las respuestas.
 
-Accede a la documentacion: https://drive.google.com/file/d/1pEpshwhyg-C2gJsVAE-yBPzxmpw0LPXy/view?usp=drive_link
-Puedes importar el archivo o el codigo yaml en Swagger Editor o Postman.
-
-Diseño de la base de datos (entidades y sus relaciones): https://drive.google.com/file/d/1gNUxRpApEarqxgl8YIj6mXzguMBV_zai/view?usp=drive_link
+Diseño de la base de datos (entidades y sus relaciones): https://drive.google.com/file/d/1ozqlIreuTvrsSqYmWxbevV-Q2BfgoVsz/view?usp=sharing
