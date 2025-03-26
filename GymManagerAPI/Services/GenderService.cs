@@ -55,7 +55,7 @@ namespace GymManagerAPI.Services
 
         public async Task<OperationResult<GenderDTO>> UpdateGender(int id, GenderUpdateDTO genderUpdateDTO)
         {
-            var gender = await genderRepository.GetByIdAsync(id);
+            var gender = await genderRepository.GetByIdAsync(id, withTrack: true);
 
             if (gender == null)
             {

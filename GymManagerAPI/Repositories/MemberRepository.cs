@@ -28,7 +28,7 @@ namespace GymManagerAPI.Repositories
 
         public async Task<Member> GetByIdWithDetailsAsync(int id, bool details)
         {
-            var query = applicationDbContext.Members.AsQueryable();
+            var query = applicationDbContext.Members.AsNoTracking().AsQueryable();
 
             if (details)
             {
@@ -42,7 +42,7 @@ namespace GymManagerAPI.Repositories
 
         public async Task<IEnumerable<Member>> GetFilteredMembersAsync(MemberSearchDTO memberSearchDTO)
         {
-            var query = applicationDbContext.Members.AsQueryable();
+            var query = applicationDbContext.Members.AsNoTracking().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(memberSearchDTO.Name))
             {

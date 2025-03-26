@@ -23,6 +23,7 @@ namespace GymManagerAPI.Repositories
         public async Task<IEnumerable<Subscription>> GetFilteredSubscriptions(SubscriptionSearchDTO subscriptionSearchDTO)
         {
             var query = dbContext.Subscriptions
+                .AsNoTracking()
                 .Include(x => x.Member)
                 .Include(x => x.Payment)
                 .ThenInclude(x => x.Plan)
@@ -52,6 +53,7 @@ namespace GymManagerAPI.Repositories
         public async Task<Subscription> GetSubscriptionByIdWithDetails(int id) 
         {
             var subscription = await dbContext.Subscriptions
+                .AsNoTracking()
                 .Include(x => x.Member)
                 .Include(x => x.Payment)
                 .ThenInclude(x => x.Plan)
@@ -63,6 +65,7 @@ namespace GymManagerAPI.Repositories
         public async Task<IEnumerable<Subscription>> GetSubscriptionsByMemberId(int memberId)
         {
             return await dbContext.Subscriptions
+                .AsNoTracking()
                 .Where(s => s.MemberId == memberId)
                 .OrderByDescending(s => s.ExpirationDate)
                 .Include(s => s.Payment)

@@ -6,6 +6,6 @@
         void Update(T model);
         Task SaveChangesAsync();
         Task<IEnumerable<T>> GetAllAsync();
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(int id, bool withTrack = false);
     }
 }

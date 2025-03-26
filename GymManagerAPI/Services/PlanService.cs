@@ -56,7 +56,7 @@ namespace GymManagerAPI.Services
         public async Task<OperationResult<PlanDTO>> UpdatePlan(int id, PlanUpdateDTO planUpdateDTO)
         {
             //validation: verificar existencia del plan segun el id obtenido
-            var plan = await planRepository.GetByIdAsync(id);
+            var plan = await planRepository.GetByIdAsync(id, withTrack: true);
 
             if (plan == null)
             {

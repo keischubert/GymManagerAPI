@@ -75,7 +75,7 @@ namespace GymManagerAPI.Services
         public async Task<OperationResult<MemberDTO>> UpdateMember(int id, MemberUpdateDTO memberUpdateDTO)
         {
             //validation: verificar si existe el miembro con id obtenido por ruta
-            var member = await memberRepository.GetByIdAsync(id);
+            var member = await memberRepository.GetByIdAsync(id, withTrack: true);
 
             if (member == null)
             {

@@ -21,12 +21,12 @@ namespace GymManagerAPI.Repositories
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await table.ToListAsync();
+            return await table.AsNoTracking().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id, bool withTrack = false)
         {
-            return await table.FindAsync(id);
+            return withTrack ? await table.FindAsync(id) : await table.AsNoTracking().FirstOrDefaultAsync(x => EF.Property<int>(x, "Id") == id);
         }
 
         public void Update(T model)
