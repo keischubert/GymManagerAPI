@@ -1,5 +1,6 @@
 ﻿using GymManagerAPI.Data.DTOs;
 using GymManagerAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagerAPI.Controllers
@@ -7,6 +8,7 @@ namespace GymManagerAPI.Controllers
     [ApiController]
     [Route("/api/members")]
     [Produces("application/json")]
+    [Authorize(Policy = "UserPolicy")]
     public class MembersController : Controller
     {
         private readonly MemberService memberService;
@@ -17,35 +19,34 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<MemberDTO>> Create(MemberCreateDTO memberCreateDTO)
+        public async Task<ActionResult<MemberDTO>> CreateMember(MemberCreateDTO memberCreateDTO)
         {
-            var createdMember = await memberService.CreateMember(memberCreateDTO);
+            var result = await memberService.CreateMember(memberCreateDTO);
 
-            if(!createdMember.Success)
+            if(!result.IsSuccess)
             {
-                return StatusCode(createdMember.ErrorStatusCode, createdMember.ErrorMessage);
+                return StatusCode(result.StatusCode, result.Message);
             }
 
-            return CreatedAtAction("GetById", new { id = createdMember.Data.Id }, createdMember.Data);
+            return CreatedAtAction("GetMemberById", new { id = result.Data.Id }, result.Data);
         }
 
-        //Endpoint para filtrar members segun algunos parametros
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberListDTO>>> Get([FromQuery] MemberSearchDTO memberSearchDTO)
+        public async Task<ActionResult<IEnumerable<MemberListDTO>>> GetFilteredMembers([FromQuery] MemberSearchDTO memberSearchDTO)
         {
             var memberFilteredList = await memberService.GetFilteredMembers(memberSearchDTO);
 
             return Ok(memberFilteredList);
-        } 
+        }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<MemberDTO>> GetById([FromRoute] int id, [FromQuery] bool details)
+        public async Task<ActionResult<MemberDTO>> GetMemberById([FromRoute] int id, [FromQuery] bool details)
         {
             var result = await memberService.GetMemberDTOById(id, details);
 
-            if(!result.Success)
+            if(!result.IsSuccess)
             {
-                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
+                return StatusCode(result.StatusCode, result.Message);
             }
 
             var memberDTO = result.Data;
@@ -54,16 +55,16 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<MemberDTO>> Update([FromRoute] int id, [FromBody] MemberUpdateDTO memberUpdateDTO)
+        public async Task<ActionResult<MemberDTO>> UpdateMember([FromRoute] int id, [FromBody] MemberUpdateDTO memberUpdateDTO)
         {
-            var updatedMember = await memberService.UpdateMember(id, memberUpdateDTO);
+            var result = await memberService.UpdateMember(id, memberUpdateDTO);
 
-            if(!updatedMember.Success)
+            if(!result.IsSuccess)
             {
-                return StatusCode(updatedMember.ErrorStatusCode, updatedMember.ErrorMessage);
+                return StatusCode(result.StatusCode, result.Message);
             }
 
-            var memberDTO = updatedMember.Data;
+            var memberDTO = result.Data;
 
             return Ok(memberDTO);
         }

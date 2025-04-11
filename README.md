@@ -1,13 +1,16 @@
-Funcionalidades:
-Gestión de miembros: Crear, actualizar y obtener registros de miembros.
-Suscripciones: Registro de nuevas suscripciones y control de suscripciones activas.
-Pagos: Registro de pagos asociados a una suscripcion.
-Planes: Administración de planes de suscripción.
+Endpoints generales ofrecidas por la API
 
-Tecnologías utilizadas:
-ASP.NET Core
-Base de datos relacional: SQL Server
-ORM: Entity Framework Core para la interaccion de la base de datos. Creacion de la base de datos utilizando el enfoque Code First a traves de migraciones.
-AutoMapper: Mapeo de modelos a DTOs para no exponer datos innecesarios o importantes en las respuestas.
+/members
+    Registrar un nuevo miembro. Actualizar un miembro existente. Obtener un miembro especifico o una lista filtrada de miembros.
+/genders
+    Registro de un nuevo genero. Actualizar un genero existente. Obtener un genero especifico o una lista de generos existentes.
+/plans
+    Registro de un nuevo plan. Actualizar un plan existente. Obtener un plan especifico o una lista de planes existentes.
+/subscriptions
+    Registrar una nueva suscripcion a un miembro con un pago asociado de acuerdo al precio del plan y el cual puede incluir varios metodos de pago. Obtener suscripciones especificas o una lista filtrada. Borrado lógico para mantener un historial y evitar problemas de integridad en la base de datos.
+/users
+    Registrar un nuevo usuario. Actualizar un usuario existente. Obtener un usuario en especifico o una lista de todos los usuarios. Asignar roles a un usuario. Eliminar roles de un usuario. Deshabilitar a un usuario.
+/auth
+    Autenticar un usuario y generar tokens de acceso y un refresh token para la permanencia de la sesion. Cerrar sesion y revocar el refresh token. Obtener nuevos tokens de acceso mediante un refresh token.
 
-Diseño de la base de datos (entidades y sus relaciones): https://drive.google.com/file/d/1ozqlIreuTvrsSqYmWxbevV-Q2BfgoVsz/view?usp=sharing
+Puedes encontrar el diagrama ER en el directorio raíz /docs

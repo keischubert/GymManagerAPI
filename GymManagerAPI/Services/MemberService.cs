@@ -45,7 +45,7 @@ namespace GymManagerAPI.Services
             //mapping: Member a MemberDetailDTO para la respuesta
             var memberDTO = mapper.Map<MemberDTO>(member);
 
-            return OperationResult<MemberDTO>.Ok(memberDTO);
+            return OperationResult<MemberDTO>.Ok(data: memberDTO);
         }
 
         public async Task<IEnumerable<MemberListDTO>> GetFilteredMembers(MemberSearchDTO memberSearchDTO)
@@ -69,7 +69,7 @@ namespace GymManagerAPI.Services
 
             var memberDTO = mapper.Map<MemberDTO>(member);
 
-            return OperationResult<MemberDTO>.Ok(memberDTO);
+            return OperationResult<MemberDTO>.Ok(data: memberDTO);
         }
 
         public async Task<OperationResult<MemberDTO>> UpdateMember(int id, MemberUpdateDTO memberUpdateDTO)
@@ -133,7 +133,7 @@ namespace GymManagerAPI.Services
 
             var memberDTO = mapper.Map<MemberDTO>(member);
 
-            return OperationResult<MemberDTO>.Ok(memberDTO);
+            return OperationResult<MemberDTO>.Ok(data: memberDTO);
         }
     }
 }

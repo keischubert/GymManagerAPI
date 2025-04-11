@@ -3,8 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\controllers\\subscriptionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\controllers\\subscriptionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\data\\context\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\data\\context\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\controllers\\genderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\controllers\\genderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|c:\\users\\kevin\\source\\repos\\gymmanagerapi\\gymmanagerapi\\migrations\\20250407151919_altertableusersaddcolumnisactiveandcreateanindex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A318D-9248-4D3E-985E-BE06F46CDA24}|GymManagerAPI\\GymManagerAPI.csproj|solutionrelative:gymmanagerapi\\migrations\\20250407151919_altertableusersaddcolumnisactiveandcreateanindex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,20 +38,92 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "IRepository.cs",
-              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Interfaces\\IRepository.cs",
-              "RelativeDocumentMoniker": "GymManagerAPI\\Interfaces\\IRepository.cs",
-              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Interfaces\\IRepository.cs",
-              "RelativeToolTip": "GymManagerAPI\\Interfaces\\IRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "SubscriptionsController.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\SubscriptionsController.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Controllers\\SubscriptionsController.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\SubscriptionsController.cs",
+              "RelativeToolTip": "GymManagerAPI\\Controllers\\SubscriptionsController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABwAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-26T13:42:02.626Z",
+              "WhenOpened": "2025-04-09T01:47:59.403Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GendersController.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\GendersController.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Controllers\\GendersController.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\GendersController.cs",
+              "RelativeToolTip": "GymManagerAPI\\Controllers\\GendersController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T17:54:01.747Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Services\\UserService.cs",
+              "RelativeToolTip": "GymManagerAPI\\Services\\UserService.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowIoAAABjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T15:33:19.799Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Services\\AuthService.cs",
+              "RelativeToolTip": "GymManagerAPI\\Services\\AuthService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABsAAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T15:28:51.66Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "GymManagerAPI\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowDgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T15:28:23.945Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\Context\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Data\\Context\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Data\\Context\\ApplicationDbContext.cs",
+              "RelativeToolTip": "GymManagerAPI\\Data\\Context\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAiwGEAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T15:27:07.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20250407151919_AlterTableUsersAddColumnIsActiveAndCreateAnIndex.cs",
+              "DocumentMoniker": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Migrations\\20250407151919_AlterTableUsersAddColumnIsActiveAndCreateAnIndex.cs",
+              "RelativeDocumentMoniker": "GymManagerAPI\\Migrations\\20250407151919_AlterTableUsersAddColumnIsActiveAndCreateAnIndex.cs",
+              "ToolTip": "C:\\Users\\kevin\\source\\repos\\GymManagerAPI\\GymManagerAPI\\Migrations\\20250407151919_AlterTableUsersAddColumnIsActiveAndCreateAnIndex.cs",
+              "RelativeToolTip": "GymManagerAPI\\Migrations\\20250407151919_AlterTableUsersAddColumnIsActiveAndCreateAnIndex.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T15:19:34.978Z"
             }
           ]
         }

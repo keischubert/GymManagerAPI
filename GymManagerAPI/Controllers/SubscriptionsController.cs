@@ -1,11 +1,14 @@
-﻿using GymManagerAPI.Data.DTOs;
+﻿using System.Security.Claims;
+using GymManagerAPI.Data.DTOs;
 using GymManagerAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagerAPI.Controllers
 {
     [Route("api/members/{memberId:int}/[controller]")]
     [ApiController]
+    [Authorize(Policy = "UserPolicy")]
     public class SubscriptionsController : ControllerBase
     {
         private readonly SubscriptionService subscriptionService;
@@ -16,28 +19,35 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(int memberId, [FromBody] SubscriptionCreateDTO subscriptionCreateDTO)
+        public async Task<ActionResult> CreateSubscription([FromRoute] int memberId, [FromBody] SubscriptionCreateDTO subscriptionCreateDTO)
         {
-            var createdSubscription = await subscriptionService.CreateSubscription(memberId, subscriptionCreateDTO);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if(!createdSubscription.Success)
+            if (!int.TryParse(userIdClaim, out int userId))
             {
-                return StatusCode(createdSubscription.ErrorStatusCode, createdSubscription.ErrorMessage);
+                return BadRequest("Invalid cast of user id");
             }
 
-            var subscriptionDTO = createdSubscription.Data;
+            var result = await subscriptionService.CreateSubscription(memberId, userId, subscriptionCreateDTO);
 
-            return CreatedAtAction("GetById", new { memberId = subscriptionDTO.MemberId, id = subscriptionDTO.Id }, subscriptionDTO);
+            if(!result.IsSuccess)
+            {
+                return StatusCode(result.StatusCode, result.Message);
+            }
+
+            var subscriptionDTO = result.Data;
+
+            return CreatedAtAction("GetSubscriptionById", new { id = subscriptionDTO.Id }, subscriptionDTO);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SubscriptionListDTO>>> GetByMemberId([FromRoute] int memberId)
+        public async Task<ActionResult<IEnumerable<SubscriptionListDTO>>> GetSubscriptionsByMemberId([FromRoute] int memberId)
         {
             var result = await subscriptionService.GetSubscriptionsByMember(memberId);
 
-            if (!result.Success)
+            if (!result.IsSuccess)
             {
-                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
+                return StatusCode(result.StatusCode, result.Message);
             }
 
             var subscriptionList = result.Data;
@@ -46,7 +56,7 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpGet("/api/[controller]")]
-        public async Task<ActionResult<IEnumerable<SubscriptionDTO>>> GetSubscriptions([FromQuery] SubscriptionSearchDTO subscriptionSearchDTO)
+        public async Task<ActionResult<IEnumerable<SubscriptionDTO>>> GetFilteredSubscriptions([FromQuery] SubscriptionSearchDTO subscriptionSearchDTO)
         {
             var result = await subscriptionService.GetFilteredSubscriptions(subscriptionSearchDTO);
 
@@ -56,13 +66,13 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpGet("/api/[controller]/{id:int}")]
-        public async Task<ActionResult<SubscriptionDetailsDTO>> GetById([FromRoute] int id)
+        public async Task<ActionResult<SubscriptionDetailsDTO>> GetSubscriptionById([FromRoute] int id)
         {
             var result = await subscriptionService.GetSubscriptionById(id);
 
-            if (!result.Success)
+            if (!result.IsSuccess)
             {
-                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
+                return StatusCode(result.StatusCode, result.Message);
             }
 
             var subscriptionDetailsDTO = result.Data;
@@ -71,14 +81,21 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpDelete("/api/[controller]/{id:int}")]
-        public async Task<ActionResult> Delete([FromRoute] int id)
+        public async Task<ActionResult> DeleteSubscription([FromRoute] int id)
         {
-            //validation: verificar que el Member tenga la subscripcion
-            var result = await subscriptionService.SoftDeleteSubscription(id);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (!result.Success)
+            if (!int.TryParse(userIdClaim, out int userId))
             {
-                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
+                return BadRequest($"An error with the user id");
+            }
+
+            //validation: verificar que el Member tenga la subscripcion
+            var result = await subscriptionService.SoftDeleteSubscription(id, userId);
+
+            if (!result.IsSuccess)
+            {
+                return StatusCode(result.StatusCode, result.Message);
             }
 
             return NoContent();

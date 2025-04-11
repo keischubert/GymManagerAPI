@@ -13,7 +13,10 @@ namespace GymManagerAPI.Data.Context
         public DbSet<DeletedSubscription> DeletedSubscriptions { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; } 
         public DbSet<PaymentDetail> PaymentDetails { get; set; }
-
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -70,8 +73,53 @@ namespace GymManagerAPI.Data.Context
             modelBuilder.Entity<Payment>()
                 .HasQueryFilter(p => !p.Subscription.IsDeleted);
 
+            modelBuilder.Entity<PaymentDetail>()
+                .HasQueryFilter(pd => !pd.Payment.Subscription.IsDeleted);
+
             modelBuilder.Entity<DeletedSubscription>()
                 .HasQueryFilter(ds => ds.Subscription.IsDeleted);
+
+            // Definiendo una clave primaria compuesta en UserRoles.
+            modelBuilder.Entity<UserRole>()
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
+
+            //many-to-many relationship between User and Role.
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UserRoles)
+                .HasForeignKey(ur => ur.UserId);
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleId);
+
+            //setting a relation one to many between Users and Subscriptions
+            //setting a relation one to many between Users and DeletedSubscriptions
+            //create an index
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasMany(u => u.Subscriptions)
+                      .WithOne(s => s.User)
+                      .HasForeignKey(s => s.UserId);
+
+                entity.HasMany(u => u.DeletedSubscriptions)
+                      .WithOne(ds => ds.User)
+                      .OnDelete(DeleteBehavior.Restrict)
+                      .HasForeignKey(ds => ds.UserId);
+
+                entity.HasIndex(x => x.UserName).IsUnique();
+            });
+
+            //setting a relation one to many between Users and RefreshTokens
+            modelBuilder.Entity<RefreshToken>(entity =>
+            {
+                entity.HasOne(rt => rt.User)
+                      .WithMany(u => u.RefreshTokens)
+                      .HasForeignKey(rt => rt.UserId);
+
+                entity.Property(rt => rt.Token).IsRequired();
+            });
+                
 
             base.OnModelCreating(modelBuilder);
         }

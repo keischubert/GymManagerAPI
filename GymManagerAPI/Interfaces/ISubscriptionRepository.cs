@@ -9,7 +9,7 @@ namespace GymManagerAPI.Interfaces
         Task<Subscription> GetSubscriptionByIdWithDetails(int id);
         Task<IEnumerable<Subscription>> GetSubscriptionsByMemberId(int memberId);
         Task<IEnumerable<Subscription>> GetFilteredSubscriptions(SubscriptionSearchDTO subscriptionSearchDTO);
-        Task SoftDelete(Subscription subscription);
+        Task SoftDelete(Subscription subscription, int userId);
 
     }
 }

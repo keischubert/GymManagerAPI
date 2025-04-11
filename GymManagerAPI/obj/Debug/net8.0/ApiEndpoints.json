@@ -1,7 +1,53 @@
 [
   {
+    "ContainingType": "GymManagerAPI.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userLoginDTO",
+        "Type": "GymManagerAPI.Data.DTOs.UserLoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.AuthController",
+    "Method": "Logout",
+    "RelativePath": "api/Auth/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.AuthController",
+    "Method": "RefreshToken",
+    "RelativePath": "api/Auth/refresh-token",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "GymManagerAPI.Controllers.GendersController",
-    "Method": "Create",
+    "Method": "CreateGender",
     "RelativePath": "api/Genders",
     "HttpMethod": "POST",
     "IsController": true,
@@ -17,7 +63,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.GendersController",
-    "Method": "GetAll",
+    "Method": "GetAllGenders",
     "RelativePath": "api/Genders",
     "HttpMethod": "GET",
     "IsController": true,
@@ -37,7 +83,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.GendersController",
-    "Method": "GetById",
+    "Method": "GetGenderById",
     "RelativePath": "api/Genders/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -63,7 +109,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.GendersController",
-    "Method": "Update",
+    "Method": "UpdateGender",
     "RelativePath": "api/Genders/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -94,7 +140,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.MembersController",
-    "Method": "Create",
+    "Method": "CreateMember",
     "RelativePath": "api/members",
     "HttpMethod": "POST",
     "IsController": true,
@@ -118,7 +164,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.MembersController",
-    "Method": "Get",
+    "Method": "GetFilteredMembers",
     "RelativePath": "api/members",
     "HttpMethod": "GET",
     "IsController": true,
@@ -162,7 +208,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.MembersController",
-    "Method": "GetById",
+    "Method": "GetMemberById",
     "RelativePath": "api/members/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -191,7 +237,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.MembersController",
-    "Method": "Update",
+    "Method": "UpdateMember",
     "RelativePath": "api/members/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -220,7 +266,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
-    "Method": "Create",
+    "Method": "CreateSubscription",
     "RelativePath": "api/members/{memberId}/Subscriptions",
     "HttpMethod": "POST",
     "IsController": true,
@@ -241,7 +287,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
-    "Method": "GetByMemberId",
+    "Method": "GetSubscriptionsByMemberId",
     "RelativePath": "api/members/{memberId}/Subscriptions",
     "HttpMethod": "GET",
     "IsController": true,
@@ -267,7 +313,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.PlansController",
-    "Method": "Create",
+    "Method": "CreatePlan",
     "RelativePath": "api/Plans",
     "HttpMethod": "POST",
     "IsController": true,
@@ -293,7 +339,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.PlansController",
-    "Method": "GetAll",
+    "Method": "GetAllPlans",
     "RelativePath": "api/Plans",
     "HttpMethod": "GET",
     "IsController": true,
@@ -313,7 +359,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.PlansController",
-    "Method": "GetById",
+    "Method": "GetPlanById",
     "RelativePath": "api/Plans/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -339,7 +385,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.PlansController",
-    "Method": "Update",
+    "Method": "UpdatePlan",
     "RelativePath": "api/Plans/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -360,7 +406,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
-    "Method": "GetSubscriptions",
+    "Method": "GetFilteredSubscriptions",
     "RelativePath": "api/Subscriptions",
     "HttpMethod": "GET",
     "IsController": true,
@@ -396,7 +442,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
-    "Method": "GetById",
+    "Method": "GetSubscriptionById",
     "RelativePath": "api/Subscriptions/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -422,7 +468,7 @@
   },
   {
     "ContainingType": "GymManagerAPI.Controllers.SubscriptionsController",
-    "Method": "Delete",
+    "Method": "DeleteSubscription",
     "RelativePath": "api/Subscriptions/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -431,6 +477,173 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.UsersController",
+    "Method": "GetUsers",
+    "RelativePath": "api/Users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[GymManagerAPI.Models.User, GymManagerAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.UsersController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/Users/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.UsersController",
+    "Method": "GetUserById",
+    "RelativePath": "api/Users/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "GymManagerAPI.Data.DTOs.UserDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.UsersController",
+    "Method": "UpdateUser",
+    "RelativePath": "api/Users/{userId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "userUpdateDTO",
+        "Type": "GymManagerAPI.Data.DTOs.UserUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.UsersController",
+    "Method": "AssignRoleToUser",
+    "RelativePath": "api/Users/{userId}/roles",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "roleId",
+        "Type": "System.Int32[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.UsersController",
+    "Method": "DeleteUserRoles",
+    "RelativePath": "api/Users/{userId}/roles",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "roleIds",
+        "Type": "System.Int32[]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.UsersController",
+    "Method": "GetUserRoles",
+    "RelativePath": "api/Users/{userId}/roles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[GymManagerAPI.Models.Role, GymManagerAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "GymManagerAPI.Controllers.UsersController",
+    "Method": "Register",
+    "RelativePath": "api/Users/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userCreateDTO",
+        "Type": "GymManagerAPI.Data.DTOs.UserCreateDTO",
         "IsRequired": true
       }
     ],

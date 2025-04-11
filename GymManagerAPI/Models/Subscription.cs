@@ -7,6 +7,8 @@ namespace GymManagerAPI.Models
         public int Id { get; set; }
         public int MemberId { get; set; }
         public Member Member { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; } //navigation property
         public DateTime StartDate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public bool IsDeleted { get; set; } //soft delete

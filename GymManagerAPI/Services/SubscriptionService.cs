@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using GymManagerAPI.Data.Common;
+using GymManagerAPI.Data.Context;
 using GymManagerAPI.Data.DTOs;
 using GymManagerAPI.Interfaces;
 using GymManagerAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymManagerAPI.Services
 {
@@ -12,16 +14,18 @@ namespace GymManagerAPI.Services
         private readonly ISubscriptionRepository subscriptionRepository;
         private readonly IMemberRepository memberRepository;
         private readonly IPlanRepository planRepository;
+        private readonly ApplicationDbContext applicationDbContext;
 
-        public SubscriptionService(IMapper mapper, ISubscriptionRepository subscriptionRepository, IMemberRepository memberRepository, IPlanRepository planRepository)
+        public SubscriptionService(IMapper mapper, ISubscriptionRepository subscriptionRepository, IMemberRepository memberRepository, IPlanRepository planRepository, ApplicationDbContext applicationDbContext)
         {
             this.mapper = mapper;
             this.subscriptionRepository = subscriptionRepository;
             this.memberRepository = memberRepository;
             this.planRepository = planRepository;
+            this.applicationDbContext = applicationDbContext;
         }
 
-        public async Task<OperationResult<SubscriptionDTO>> CreateSubscription(int memberId, SubscriptionCreateDTO subscriptionCreateDTO)
+        public async Task<OperationResult<SubscriptionDTO>> CreateSubscription(int memberId, int userId, SubscriptionCreateDTO subscriptionCreateDTO)
         {
             //validation: verificar si el memberId existe en Members
             if (!await memberRepository.DoesMemberExistsAsync(memberId))
@@ -50,8 +54,10 @@ namespace GymManagerAPI.Services
             subscription.ExpirationDate = subscription.StartDate.AddDays(planSelected.DurationInDays);
 
             //payment
+            //setting payment date as today
             subscription.Payment.DateTime = DateTime.Now;
 
+            //validating if the total is the same as the planselected price
             var totalAmount = subscription.Payment.PaymentDetails.Sum(x => x.Amount);
 
             if (totalAmount != planSelected.Price)
@@ -59,7 +65,12 @@ namespace GymManagerAPI.Services
                 return OperationResult<SubscriptionDTO>.Fail(400, "Hay un problema con el pago, este no coincide con el precio del plan.");
             }
 
-            subscription.Payment.TotalAmount = subscription.Payment.PaymentDetails.Sum(x => x.Amount);
+
+            subscription.Payment.TotalAmount = totalAmount;
+
+            //register the user who made the new subscription
+            // it's not necessary validating because this id we got from the token
+            subscription.UserId = userId;
 
             //registrando la subscripcion y el pago
             await subscriptionRepository.AddCascadeAsync(subscription);
@@ -68,7 +79,7 @@ namespace GymManagerAPI.Services
             //mapping: Subscription a SubscriptionDTO para la respuesta
             var subscriptionDTO = mapper.Map<SubscriptionDTO>(subscription);
 
-            return OperationResult<SubscriptionDTO>.Ok(subscriptionDTO);
+            return OperationResult<SubscriptionDTO>.Ok(data: subscriptionDTO);
         }
 
         public async Task<OperationResult<SubscriptionDetailsDTO>> GetSubscriptionById(int id)
@@ -83,7 +94,7 @@ namespace GymManagerAPI.Services
             //mapping: subscription a subscriptionDTO para la respuesta
             var subscriptionDetailsDTO = mapper.Map<SubscriptionDetailsDTO>(subscription);
 
-            return OperationResult<SubscriptionDetailsDTO>.Ok(subscriptionDetailsDTO);
+            return OperationResult<SubscriptionDetailsDTO>.Ok(data: subscriptionDetailsDTO);
         }
 
         public async Task<OperationResult<IEnumerable<SubscriptionListDTO>>> GetSubscriptionsByMember(int memberId)
@@ -98,7 +109,7 @@ namespace GymManagerAPI.Services
 
             var subscriptionListDTO = mapper.Map<List<SubscriptionListDTO>>(subscriptionList);
 
-            return OperationResult<IEnumerable<SubscriptionListDTO>>.Ok(subscriptionListDTO);
+            return OperationResult<IEnumerable<SubscriptionListDTO>>.Ok(data: subscriptionListDTO);
         }
 
         public async Task<OperationResult<IEnumerable<SubscriptionDetailsDTO>>> GetFilteredSubscriptions(SubscriptionSearchDTO subscriptionSearchDTO)
@@ -107,13 +118,13 @@ namespace GymManagerAPI.Services
 
             var subscriptionDetailsDTOList = mapper.Map<IEnumerable<SubscriptionDetailsDTO>>(subscriptionList);
 
-            return OperationResult<IEnumerable<SubscriptionDetailsDTO>>.Ok(subscriptionDetailsDTOList);
+            return OperationResult<IEnumerable<SubscriptionDetailsDTO>>.Ok(data: subscriptionDetailsDTOList);
         }
 
-        public async Task<OperationResult<Subscription>> SoftDeleteSubscription(int id)
+        public async Task<OperationResult<Subscription>> SoftDeleteSubscription(int subscriptionId, int userId)
         {
             //validation: verificar la existencia de la subscription
-            var subscription = await subscriptionRepository.GetByIdAsync(id);
+            var subscription = await subscriptionRepository.GetByIdAsync(subscriptionId);
 
             if (subscription == null)
             {
@@ -121,11 +132,11 @@ namespace GymManagerAPI.Services
             }
 
             //apply: aplicamos el softdelete
-            await subscriptionRepository.SoftDelete(subscription);
+            await subscriptionRepository.SoftDelete(subscription, userId);
 
             await subscriptionRepository.SaveChangesAsync();
 
-            return OperationResult<Subscription>.Ok(subscription);
+            return OperationResult<Subscription>.Ok(data: subscription);
         }
     }
 }

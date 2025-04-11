@@ -148,5 +148,65 @@
         <member name="M:GymManagerAPI.Migrations.CreateTablePaymentDetails.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:GymManagerAPI.Migrations.CreateTableUsersRolesAndSeedingSomeData">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableUsersRolesAndSeedingSomeData.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableUsersRolesAndSeedingSomeData.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableUsersRolesAndSeedingSomeData.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.AlterTableSubscriptionsAddUserFK">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableSubscriptionsAddUserFK.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableSubscriptionsAddUserFK.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableSubscriptionsAddUserFK.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.AlterTableDeletedSubscriptionsAddUserFK">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableDeletedSubscriptionsAddUserFK.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableDeletedSubscriptionsAddUserFK.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableDeletedSubscriptionsAddUserFK.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.CreateTableRefreshTokens">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableRefreshTokens.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableRefreshTokens.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.CreateTableRefreshTokens.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:GymManagerAPI.Migrations.AlterTableUsersAddColumnIsActiveAndCreateAnIndex">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableUsersAddColumnIsActiveAndCreateAnIndex.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableUsersAddColumnIsActiveAndCreateAnIndex.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:GymManagerAPI.Migrations.AlterTableUsersAddColumnIsActiveAndCreateAnIndex.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

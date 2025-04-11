@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using GymManagerAPI.Data.DTOs;
 using GymManagerAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagerAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "DeveloperPolicy")]
     public class GendersController : ControllerBase
     {
         private readonly GenderService genderService;
@@ -17,7 +19,7 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(GenderCreateDTO genderCreateDTO)
+        public async Task<ActionResult> CreateGender(GenderCreateDTO genderCreateDTO)
         {
             var result = await genderService.Create(genderCreateDTO);
 
@@ -27,13 +29,13 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<GenderDTO>> GetById(int id)
+        public async Task<ActionResult<GenderDTO>> GetGenderById(int id)
         {
             var result = await genderService.GetById(id);
 
-            if (!result.Success)
+            if (!result.IsSuccess)
             {
-                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
+                return StatusCode(result.StatusCode, result.Message);
             }
 
             var genderDTO = result.Data;
@@ -42,7 +44,7 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GenderDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<GenderDTO>>> GetAllGenders()
         {
             var result = await genderService.GetAll();
 
@@ -52,13 +54,13 @@ namespace GymManagerAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<GenderDTO>> Update(int id, GenderUpdateDTO genderUpdateDTO)
+        public async Task<ActionResult<GenderDTO>> UpdateGender(int id, GenderUpdateDTO genderUpdateDTO)
         {
             var result = await genderService.UpdateGender(id, genderUpdateDTO);
 
-            if (!result.Success)
+            if (!result.IsSuccess)
             {
-                return StatusCode(result.ErrorStatusCode, result.ErrorMessage);
+                return StatusCode(result.StatusCode, result.Message);
             }
 
             var genderDTO = result.Data;

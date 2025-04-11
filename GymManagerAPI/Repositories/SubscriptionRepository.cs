@@ -73,7 +73,7 @@ namespace GymManagerAPI.Repositories
                 .ToListAsync();
         }
 
-        public async Task SoftDelete(Subscription subscription)
+        public async Task SoftDelete(Subscription subscription, int userId)
         {
             subscription.IsDeleted = true;
             dbContext.Subscriptions.Update(subscription);
@@ -82,7 +82,7 @@ namespace GymManagerAPI.Repositories
             var deletedSubscription = new DeletedSubscription()
             {
                 SubscriptionId = subscription.Id,
-                DeletedBy = "Juan",
+                UserId = userId,
                 DeletedAt = DateTime.Now
             };
 

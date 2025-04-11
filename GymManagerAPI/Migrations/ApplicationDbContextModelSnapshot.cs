@@ -33,16 +33,18 @@ namespace GymManagerAPI.Migrations
                     b.Property<DateTime>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("SubscriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SubscriptionId")
                         .IsUnique();
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("DeletedSubscriptions");
                 });
@@ -198,6 +200,57 @@ namespace GymManagerAPI.Migrations
                     b.ToTable("Plans");
                 });
 
+            modelBuilder.Entity("GymManagerAPI.Models.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
+            modelBuilder.Entity("GymManagerAPI.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("GymManagerAPI.Models.Subscription", b =>
                 {
                     b.Property<int>("Id")
@@ -218,11 +271,68 @@ namespace GymManagerAPI.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MemberId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Subscriptions");
+                });
+
+            modelBuilder.Entity("GymManagerAPI.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("GymManagerAPI.Models.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("GymManagerAPI.Models.DeletedSubscription", b =>
@@ -233,7 +343,15 @@ namespace GymManagerAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GymManagerAPI.Models.User", "User")
+                        .WithMany("DeletedSubscriptions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Subscription");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GymManagerAPI.Models.Member", b =>
@@ -285,6 +403,17 @@ namespace GymManagerAPI.Migrations
                     b.Navigation("PaymentMethod");
                 });
 
+            modelBuilder.Entity("GymManagerAPI.Models.RefreshToken", b =>
+                {
+                    b.HasOne("GymManagerAPI.Models.User", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("GymManagerAPI.Models.Subscription", b =>
                 {
                     b.HasOne("GymManagerAPI.Models.Member", "Member")
@@ -293,7 +422,34 @@ namespace GymManagerAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GymManagerAPI.Models.User", "User")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Member");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GymManagerAPI.Models.UserRole", b =>
+                {
+                    b.HasOne("GymManagerAPI.Models.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GymManagerAPI.Models.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GymManagerAPI.Models.Gender", b =>
@@ -321,11 +477,27 @@ namespace GymManagerAPI.Migrations
                     b.Navigation("Payments");
                 });
 
+            modelBuilder.Entity("GymManagerAPI.Models.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
             modelBuilder.Entity("GymManagerAPI.Models.Subscription", b =>
                 {
                     b.Navigation("DeletedSubscription");
 
                     b.Navigation("Payment");
+                });
+
+            modelBuilder.Entity("GymManagerAPI.Models.User", b =>
+                {
+                    b.Navigation("DeletedSubscriptions");
+
+                    b.Navigation("RefreshTokens");
+
+                    b.Navigation("Subscriptions");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

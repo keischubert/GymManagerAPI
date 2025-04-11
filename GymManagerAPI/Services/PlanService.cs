@@ -26,7 +26,7 @@ namespace GymManagerAPI.Services
 
             var planDTO = mapper.Map<PlanDTO>(plan);
 
-            return OperationResult<PlanDTO>.Ok(planDTO);
+            return OperationResult<PlanDTO>.Ok(data: planDTO);
         }
 
         public async Task<OperationResult<IEnumerable<PlanDTO>>> GetAll()
@@ -35,7 +35,7 @@ namespace GymManagerAPI.Services
 
             var planDTOList = mapper.Map<IEnumerable<PlanDTO>>(planList);
 
-            return OperationResult<IEnumerable<PlanDTO>>.Ok(planDTOList);
+            return OperationResult<IEnumerable<PlanDTO>>.Ok(data: planDTOList);
         }
 
         public async Task<OperationResult<PlanDTO>> GetById(int id)
@@ -50,7 +50,7 @@ namespace GymManagerAPI.Services
 
             var planDTO = mapper.Map<PlanDTO>(plan);
 
-            return OperationResult<PlanDTO>.Ok(planDTO);
+            return OperationResult<PlanDTO>.Ok(data: planDTO);
         }
 
         public async Task<OperationResult<PlanDTO>> UpdatePlan(int id, PlanUpdateDTO planUpdateDTO)
@@ -84,7 +84,7 @@ namespace GymManagerAPI.Services
 
             var planDTO = mapper.Map<PlanDTO>(plan);
 
-            return OperationResult<PlanDTO>.Ok(planDTO);
+            return OperationResult<PlanDTO>.Ok(data: planDTO);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace GymManagerAPI.Services
 
             var genderDTO = mapper.Map<GenderDTO>(gender);
 
-            return OperationResult<GenderDTO>.Ok(genderDTO);
+            return OperationResult<GenderDTO>.Ok(data: genderDTO);
         }
 
         public async Task<OperationResult<GenderDTO>> GetById(int id)
@@ -36,12 +36,12 @@ namespace GymManagerAPI.Services
 
             if (gender == null)
             {
-                return OperationResult<GenderDTO>.Fail(404, "No existe ningun genero con el id proporcionado");
+                return OperationResult<GenderDTO>.Fail(404, "Invvalid gender id");
             }
 
             var genderDTO = mapper.Map<GenderDTO>(gender);
 
-            return OperationResult<GenderDTO>.Ok(genderDTO);
+            return OperationResult<GenderDTO>.Ok(data: genderDTO);
         }
 
         public async Task<OperationResult<IEnumerable<GenderDTO>>> GetAll()
@@ -50,7 +50,7 @@ namespace GymManagerAPI.Services
 
             var genderListDTO = mapper.Map<IEnumerable<GenderDTO>>(genderList);
 
-            return OperationResult<IEnumerable<GenderDTO>>.Ok(genderListDTO);
+            return OperationResult<IEnumerable<GenderDTO>>.Ok(data: genderListDTO);
         }
 
         public async Task<OperationResult<GenderDTO>> UpdateGender(int id, GenderUpdateDTO genderUpdateDTO)
@@ -72,7 +72,7 @@ namespace GymManagerAPI.Services
 
             var genderDTO = mapper.Map<GenderDTO>(gender);
 
-            return OperationResult<GenderDTO>.Ok(genderDTO);
+            return OperationResult<GenderDTO>.Ok(data: genderDTO);
         }
 
 
